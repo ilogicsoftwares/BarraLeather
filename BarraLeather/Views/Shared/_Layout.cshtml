@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barra Leather, Venta de Articulos de Cuero</title>
+    <!--[if ie]><meta content='IE=8' http-equiv='X-UA-Compatible'/><![endif]-->
+    <link href="~/Content/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="~/Content/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="~/Content/themes/css/bootstrappage.css" rel="stylesheet" />
+
+    <!-- global styles -->
+    <link href="~/Content/themes/css/flexslider.css" rel="stylesheet" />
+    <link href="~/Content/themes/css/main.css" rel="stylesheet" />
+    <link href="~/Content/themes/css/hover.css" rel="stylesheet" />
+
+
+    <!-- scripts -->
+    <script src="~/Content/themes/js/jquery-1.7.2.min.js"></script>
+    <script src="~/Content/angular/angular.min.js"></script>
+    <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Content/themes/js/superfish.js"></script>
+    <script src="~/Content/themes/js/jquery.scrolltotop.js"></script>
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+    <!--<div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                </ul>
+            </div>
+        </div>
+    </div>-->
+    
+
+    <div class="body-content">
+        <section class="navbar main-menu" style="margin-top:10px;">
+            <div class="navbar-inner main-menu">
+                <a href="index.html" class="img-responsive logo pull-left"><img src="~/Content/themes/images/logo.png" class="site_logo" alt=""></a>
+                <nav id="menu" class="pull-right">
+                    <ul>
+
+                        <li>
+                            <a class="hvr-glow" href="./products.html"><span class="fa fa-tags"></span>Categorias</a>
+
+                            <ul>
+                                <li><a href="./products.html">Mochilas</a></li>
+                                <li><a href="./products.html">Maletines</a></li>
+                                <li><a href="./products.html">Morrales</a></li>
+                                <li><a href="./products.html">Canguros</a></li>
+                                <li><a href="./products.html">Portalaptops</a></li>
+                                <li><a href="./products.html">Calzado</a></li>
+                            </ul>
+
+                        </li>
+
+                        <li><a class="hvr-glow" href="./products.html"><span class="fa fa-user"></span>Ingresar</a></li>
+                        <li><a class="hvr-glow" href="./products.html"><span class="fa fa-shopping-cart"></span>Carrito</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </section>
+         @RenderBody()
+      
+    </div>
+    <script>
+        $(document).ready(function () {
+            var stickyNavTop = $('.navbar.main-menu').offset().top;
+
+            var stickyNav = function () {
+                var scrollTop = $(window).scrollTop();
+
+                if (scrollTop > stickyNavTop) {
+                    $('.navbar.main-menu').addClass('navbar-fixed-top');
+                    $('.navbar.main-menu').css("opacity", "0.9");
+                    $('.navbar.main-menu').css("margin-top", "0px");
+
+                } else {
+                    $('.navbar.main-menu').removeClass('navbar-fixed-top');
+                    $('.navbar.main-menu').css("margin-top", "30px");
+                    $('#menu ul li ').css("z-index",    "1000");
+
+                }
+            };
+
+            stickyNav();
+
+            $(window).scroll(function () {
+                stickyNav();
+            });
+        });
+
+    </script>
+   <!-- <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>-->
+</body>
+</html>
