@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
+using BarraLeather.Models;
+using System.Net.Mail;
+using System.Net;
 
 namespace BarraLeather.Controllers
 {
@@ -11,35 +15,86 @@ namespace BarraLeather.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return View();
+
+            tiendaEntities db = new tiendaEntities();
+            var cat = db.category.OrderBy(x => x.id).ToList();
+            ViewBag.offerProd = JsonConvert.SerializeObject(db.productos.Where(x => x.status == 1).Take(8).ToList());
+            ViewBag.NewProd = JsonConvert.SerializeObject(db.productos.Where(x => x.status == 0).Take(8).ToList());
+            ViewBag.categorys = JsonConvert.SerializeObject(cat);
+               return View();
         }
 
         // GET: Home/Details/5
-        public ActionResult Details(int id)
+        public ActionResult About()
         {
             return View();
         }
 
         // GET: Home/Create
-        public ActionResult Create()
+        public ActionResult Contact()
+         {
+            tiendaEntities db = new tiendaEntities();
+            var cat = db.category.OrderBy(x => x.id).ToList();
+            ViewBag.categorys = JsonConvert.SerializeObject(cat);
+            ViewBag.contact = JsonConvert.SerializeObject(new models.Contact());
+            return View();
+        }
+        [HttpPost]
+        public ActionResult SendContact(models.Contact contact)
         {
+          
+            EstatusLog estatus = new EstatusLog();
+
+            try
+            {
+                var fromAddress = new MailAddress("admin@ilogicsoftwares.com", contact.nombre + " " + contact.email);
+                var toAddress = new MailAddress("barralizaraso10@gmail.com", "barraleather");
+                const string fromPassword = "MINICO209#";
+                string subject = "Mensaje de: " + contact.nombre;
+                string body = contact.msg;
+
+                var smtp = new SmtpClient
+                { //port 587
+                    Host = "smtpout.secureserver.net",
+                    Port = 80,
+                    EnableSsl = false,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
+
+
+                };
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body
+                })
+                {
+                    smtp.Send(message);
+                }
+                estatus.success = true;
+                ViewBag.message = "Se ha enviado el mensaje";
+             
+            }
+            catch (Exception)
+            {
+                estatus.error = true;
+                ViewBag.message = "Ocurrio un error al enviar el mensaje, intente mas tarde";
+             
+            }
+
+
             return View();
         }
 
         // POST: Home/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Msg(string message)
         {
-            try
-            {
-                // TODO: Add insert logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
+                ViewBag.message=message;
                 return View();
-            }
+            
         }
 
         // GET: Home/Edit/5

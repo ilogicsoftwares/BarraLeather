@@ -1,0 +1,19 @@
+﻿<div id="wrapper" class="container" style="margin-top:50px">
+
+
+    <section class="header_text sub">
+
+        <h4><span>Contactenos</span></h4>
+    </section>
+    <section class="main-content">
+     
+            <div class="jumbotron">
+                <h1 class="text-center">@ViewBag.message</h1>
+
+        </div>
+    </section>
+    <script>
+        var categorys = JSON.parse('@Html.Raw(ViewBag.categorys)');
+        var contact = JSON.parse('@Html.Raw(ViewBag.contact)');
+    </script>
+</div>

@@ -1,7 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
-  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -43,11 +41,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.Entity.6.9.9\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -89,6 +105,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\angular\angular.min.js" />
+    <Content Include="Content\angular\Controllers.js" />
+    <Content Include="Content\angular\Services.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap\css\bootstrap-responsive.css" />
@@ -99,12 +118,14 @@
     <Content Include="Content\bootstrap\img\glyphicons-halflings.png" />
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\carrousel.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\css\bootstrappage.css" />
     <Content Include="Content\themes\css\flexslider.css" />
     <Content Include="Content\themes\css\hover.css" />
     <Content Include="Content\themes\css\jquery.fancybox.css" />
     <Content Include="Content\themes\css\main.css" />
+    <Content Include="Content\themes\font-awesome.min.css" />
     <Content Include="Content\themes\images\arrow-p.png" />
     <Content Include="Content\themes\images\arrow-pleft.png" />
     <Content Include="Content\themes\images\bg.png" />
@@ -112,6 +133,16 @@
     <Content Include="Content\themes\images\feature_img_2.png" />
     <Content Include="Content\themes\images\feature_img_3.png" />
     <Content Include="Content\themes\images\gotop.png" />
+    <Content Include="Content\themes\images\ladies\bananoManta.jpg" />
+    <Content Include="Content\themes\images\ladies\bananoMedium.jpg" />
+    <Content Include="Content\themes\images\ladies\bananosweetcaramel.jpg" />
+    <Content Include="Content\themes\images\ladies\base.jpg" />
+    <Content Include="Content\themes\images\ladies\maletinExecutive.jpg" />
+    <Content Include="Content\themes\images\ladies\minigreen.jpg" />
+    <Content Include="Content\themes\images\ladies\mochiladeepbrown.jpg" />
+    <Content Include="Content\themes\images\ladies\MochilaRedPeper.jpg" />
+    <Content Include="Content\themes\images\ladies\portalaptopredpaper.jpg" />
+    <Content Include="Content\themes\images\ladies\PortalaptosBrown.jpg" />
     <Content Include="Content\themes\images\line_bar.png" />
     <Content Include="Content\themes\images\logo.png" />
     <Content Include="Content\themes\images\logo2.png" />
@@ -134,43 +165,70 @@
     <Content Include="Content\themes\images\Clients\3.png" />
     <Content Include="Content\themes\images\Clients\35.png" />
     <Content Include="Content\themes\images\Clients\4.png" />
-    <Content Include="Content\themes\images\Cloth\bootstrap-women-ware1.jpg" />
-    <Content Include="Content\themes\images\Cloth\bootstrap-women-ware2.jpg" />
-    <Content Include="Content\themes\images\Cloth\bootstrap-women-ware3.jpg" />
-    <Content Include="Content\themes\images\Cloth\bootstrap-women-ware4.jpg" />
-    <Content Include="Content\themes\images\Cloth\bootstrap-women-ware5.jpg" />
-    <Content Include="Content\themes\images\Cloth\bootstrap-women-ware6.jpg" />
     <Content Include="Content\themes\js\common.js" />
     <Content Include="Content\themes\js\jquery-1.7.2.min.js" />
     <Content Include="Content\themes\js\jquery.fancybox.js" />
     <Content Include="Content\themes\js\jquery.flexslider-min.js" />
     <Content Include="Content\themes\js\jquery.scrolltotop.js" />
-    <Content Include="Content\themes\images\ladies\1.jpg" />
-    <Content Include="Content\themes\images\ladies\2.jpg" />
-    <Content Include="Content\themes\images\ladies\3.jpg" />
-    <Content Include="Content\themes\images\ladies\4.jpg" />
-    <Content Include="Content\themes\images\ladies\5.jpg" />
-    <Content Include="Content\themes\images\ladies\6.jpg" />
-    <Content Include="Content\themes\images\ladies\7.jpg" />
-    <Content Include="Content\themes\images\ladies\8.jpg" />
-    <Content Include="Content\themes\images\ladies\9.jpg" />
     <Content Include="Content\themes\js\superfish.js" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\BARRA.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Web.config" />
+    <Content Include="tienda.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>tienda.edmx</DependentUpon>
+      <LastGenOutput>tienda.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="tienda.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>tienda.edmx</DependentUpon>
+      <LastGenOutput>tienda.cs</LastGenOutput>
+    </Content>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="category.cs">
+      <DependentUpon>tienda.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductosController.cs" />
+    <Compile Include="Controllers\ShopController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\models.cs" />
+    <Compile Include="Models\Secure.cs" />
+    <Compile Include="productos.cs">
+      <DependentUpon>tienda.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="tienda.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>tienda.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tienda.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>tienda.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tienda.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>tienda.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="users.cs">
+      <DependentUpon>tienda.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -183,6 +241,19 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Users\Register.cshtml" />
+    <Content Include="Views\Shop\Cart.cshtml" />
+    <EntityDeploy Include="tienda.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>tienda.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="tienda.edmx.diagram">
+      <DependentUpon>tienda.edmx</DependentUpon>
+    </Content>
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Msg.cshtml" />
+    <Content Include="Views\Home\SendContact.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -192,7 +263,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Content\themes\images\Cloth\" />
+    <Folder Include="Views\Productos\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -219,13 +294,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

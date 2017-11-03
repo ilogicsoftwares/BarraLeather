@@ -1,0 +1,78 @@
+﻿<div id="wrapper" ng-controller="loginController">
+   
+    <section class="header_text sub">
+        <img class="pageBanner" src="themes/images/pageBanner.png" alt="Usuarios">
+        <h4><span>Ingresa o Registrate</span></h4>
+    </section>
+    <section class="main-content">
+        <div class="row">
+            <div class="span5">
+                <h4 class="title"><span class="text">Formulario de <strong>Ingreso</strong></span></h4>
+                <form name="myform1">
+                    <input type="hidden" name="next" value="/">
+                    <fieldset>
+                        <div class="control-group">
+                            <label class="control-label">Usuario</label>
+                            <div class="controls">
+                                <input pattern="^[a-zA-Z1-9].*" ng-model="user.nombre" type="text" placeholder="Ingresa tu Usuario" id="nombre" name="nombre" class="input-xlarge" required>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Clave</label>
+                            <div class="controls">
+                                <input ng-model="user.clave" type="password" placeholder="Ingresa tu Clave"  id="clave" name="clave" class="input-xlarge" required>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <input  tabindex="3" class="btn btn-inverse large" type="submit" ng-click="login($event)" value="Ingresar a tu Cuenta">
+                            <p style="color:red"><strong>{{msg}}</strong></p>
+                            <hr>
+                            <p class="reset">Lo he <a tabindex="4" href="#" title="Ruperar tu usuario o clave">Olvidado!</a></p>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="span7" ng-controller="registerController">
+                <h4 class="title"><span class="text">Formulario de <strong>Registro</strong></span></h4>
+                <form name="myform2" class="form-stacked">
+                    <fieldset>
+                        <div class="control-group">
+                            <label class="control-label">Usuario</label>
+                            <div class="controls">
+                                <input pattern="^[a-zA-Z1-9].*" ng-model="user.nombre" type="text" placeholder="Ingresa tu nombre de usuario" class="input-xlarge" required>
+                            </div>
+                            <p style="color:red"><strong>{{msg2}}</strong></p>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Correo Electronico:</label>
+                            <div class="controls">
+                                <input ng-model="user.email" type="email" placeholder="Ingresa tu email" class="input-xlarge" required>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Clave</label>
+                            <div class="controls">
+                                <input ng-model="user.clave" type="password" placeholder="Ingresa tu clave" class="input-xlarge" required>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Repite tu Clave</label>
+                            <div class="controls">
+                                <input ng-model="rclave" type="password" placeholder="Repite tu clave" class="input-xlarge" required>
+                            </div>
+                        </div>
+                        
+                        <hr>
+                        <div class="actions"><input ng-click="register($event)"  tabindex="9" class="btn btn-inverse large" type="submit" value="Crear tu Cuenta"></div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </section>
+    <script>
+
+        var categorys = JSON.parse('@Html.Raw(ViewBag.categorys)');
+
+   </script>
+  
+</div>
