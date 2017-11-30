@@ -11,16 +11,16 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/BarraLeather.dll">
-      <publishTime>11/02/2017 03:10:15</publishTime>
+      <publishTime>11/04/2017 05:19:42</publishTime>
     </File>
     <File Include="bin/BarraLeather.pdb">
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
-      <publishTime>11/09/2013 09:10:04</publishTime>
+      <publishTime>09/11/2013 09:10:04</publishTime>
     </File>
     <File Include="bin/EntityFramework.SqlServer.dll">
-      <publishTime>11/09/2013 09:10:04</publishTime>
+      <publishTime>09/11/2013 09:10:04</publishTime>
     </File>
     <File Include="bin/es/System.Web.Helpers.resources.dll">
       <publishTime>01/28/2015 04:04:36</publishTime>
@@ -113,7 +113,7 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>10/13/2017 00:41:27</publishTime>
     </File>
     <File Include="Content/angular/Controllers.js">
-      <publishTime>01/11/2017 23:52:43</publishTime>
+      <publishTime>11/02/2017 03:38:10</publishTime>
     </File>
     <File Include="Content/angular/Services.js">
       <publishTime>10/21/2017 12:36:17</publishTime>
@@ -131,7 +131,7 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>10/11/2017 23:29:28</publishTime>
     </File>
     <File Include="Content/bootstrap/css/bootstrap.css">
-      <publishTime>10/11/2017 23:29:28</publishTime>
+      <publishTime>11/04/2017 03:20:39</publishTime>
     </File>
     <File Include="Content/bootstrap/css/bootstrap.min.css">
       <publishTime>10/11/2017 23:29:28</publishTime>
@@ -296,7 +296,7 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>10/11/2017 23:30:20</publishTime>
     </File>
     <File Include="Content/themes/images/logo.png">
-      <publishTime>10/11/2017 23:30:20</publishTime>
+      <publishTime>11/04/2017 02:49:49</publishTime>
     </File>
     <File Include="Content/themes/images/logo2.png">
       <publishTime>10/11/2017 23:30:20</publishTime>
@@ -401,16 +401,19 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
       <publishTime>10/30/2017 21:25:54</publishTime>
     </File>
     <File Include="Views/Home/Contact.cshtml">
-      <publishTime>02/11/2017 00:00:57</publishTime>
+      <publishTime>11/02/2017 04:17:21</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>10/25/2017 02:18:52</publishTime>
+      <publishTime>11/04/2017 03:24:38</publishTime>
     </File>
     <File Include="Views/Home/Msg.cshtml">
-      <publishTime>01/11/2017 21:57:22</publishTime>
+      <publishTime>11/02/2017 03:46:44</publishTime>
+    </File>
+    <File Include="Views/Home/SendContact.cshtml">
+      <publishTime>11/03/2017 13:35:36</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>10/30/2017 21:36:27</publishTime>
+      <publishTime>11/04/2017 05:29:03</publishTime>
     </File>
     <File Include="Views/Shop/Cart.cshtml">
       <publishTime>10/24/2017 17:29:21</publishTime>

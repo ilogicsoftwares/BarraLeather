@@ -82,7 +82,7 @@
 
 
 
-}]).controller('contactController', ['$scope', 'Irequest', '$sce', 'Categorys', function ($scope, Irequest, $sce, Categorys) {;
+}]).controller('contactController', ['$scope', 'Irequest', '$sce', 'Categorys', '$http', function ($scope, Irequest, $sce, Categorys, $http) {;
 
     $scope.contact = contactx;
     $scope.Contactar = function (event) {
@@ -93,7 +93,11 @@
         Irequest.make('POST', '/Home/Contact', $scope.contact).then(function (data) {
 
             if (data.success) {
-                Irequest.make('POST', '/Home/Msg', "Mensaje enviado")
+                $http({
+                    url: "/Home/Msg",
+                    method: "POST",
+                    params: { msg: "Mensaje Enviado"}
+                });
             } else {
                 $scope.msg2 = data.errorMsg;
             }

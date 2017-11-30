@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using BarraLeather.Models;
 using System.Web.Security;
 using Newtonsoft.Json;
+using System.Data.Entity;
 
 namespace BarraLeather.Controllers
 {
@@ -72,8 +73,8 @@ namespace BarraLeather.Controllers
             {
                 if (user.clave.Equals(findUser.clave))
                 {
-
-                    FormsAuthentication.SetAuthCookie(user.nombre, true);
+                    
+                    FormsAuthentication.SetAuthCookie(findUser.id.ToString(), true);
                     estatus.success = true;
                 }
                 else
@@ -126,19 +127,37 @@ namespace BarraLeather.Controllers
         }
 
         // POST: Users/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+       [Authorize]
+        public ActionResult Edit()
         {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
+            tiendaEntities db = new tiendaEntities();
+            var cat = db.category.OrderBy(x => x.id).ToList();
+            ViewBag.categorys = JsonConvert.SerializeObject(cat);
+            var activeuser = Logic.logic.ActiveUser();
+            ViewBag.activeuser = activeuser;
+           
                 return View();
+            
+        }
+        [Authorize]
+        [HttpPost]
+        public JsonResult Edit(users usuario)
+        {
+            EstatusLog estatus = new EstatusLog();
+            tiendaEntities db = new tiendaEntities();
+            try {
+
+                db.users.Attach(usuario);
+                db.Entry(usuario).State = EntityState.Modified;
+                db.SaveChanges();
+            }catch(Exception ex)
+            {
+                return Json(estatus.success = false);
             }
+            
+
+            return Json(estatus);
+
         }
 
         // GET: Users/Delete/5

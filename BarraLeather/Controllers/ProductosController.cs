@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using BarraLeather.Models;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace BarraLeather.Controllers
 {
@@ -12,6 +13,7 @@ namespace BarraLeather.Controllers
     public class ProductosController : Controller
     {
         // GET: Productos
+        tiendaEntities db = new tiendaEntities();
         public ActionResult Index()
         {
             return View();
@@ -22,7 +24,7 @@ namespace BarraLeather.Controllers
         // GET: Productos/Details/5
         public JsonResult Get(models.objectId prodId)
         {
-            tiendaEntities db = new tiendaEntities();
+           
             var prod = db.productos.FirstOrDefault(x =>x.id==prodId.id);
             return Json(prod);
         }
@@ -50,8 +52,13 @@ namespace BarraLeather.Controllers
         }
 
         // GET: Productos/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Details(int id)
         {
+            var cat = db.category.OrderBy(x => x.id).ToList();
+            ViewBag.categorys = JsonConvert.SerializeObject(cat);
+            var producto = db.productos.FirstOrDefault(x => x.id == id);
+            ViewBag.producto = producto;
+            ViewBag.NewProd = JsonConvert.SerializeObject(db.productos.Where(x => x.categoryid == producto.categoryid).Take(8).ToList());
             return View();
         }
 
@@ -73,17 +80,26 @@ namespace BarraLeather.Controllers
         [HttpPost]
         public JsonResult GetAll()
         {
-            tiendaEntities db = new tiendaEntities();
+         
             var prods = db.productos.ToList();
             return Json(prods,JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetRandom()
+        {
+            Random rand = new Random();
+            int toSkip = rand.Next(1, db.productos.Count());
+
+            var prod=   db.productos.OrderBy(x=>x.id).Skip(toSkip).Take(1).First();
+          
+            return Json(prod, JsonRequestBehavior.AllowGet);
+        }
         // GET: Productos/Delete/5
-      
+
         public JsonResult Categorys()
         {
              
-        tiendaEntities db = new tiendaEntities();
+      
             var cat = db.category.OrderBy(x=>x.id).ToList();
 
             return Json(cat,JsonRequestBehavior.AllowGet);

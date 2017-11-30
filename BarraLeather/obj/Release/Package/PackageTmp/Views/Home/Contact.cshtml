@@ -1,5 +1,5 @@
 ﻿
-
+@model  BarraLeather.Models.models.Contact
 <div id="wrapper" class="container" style="margin-top:50px">
    
     <section class="google_map">
@@ -28,31 +28,34 @@
             </div>
             <div class="span7" ng-controller="contactController">
                 <p>Para nosotros es muy importante el contacto con nuestros clientes. Comunícate con nosotros por cualquier incógnita, solicitud o requerimiento y en breve te responderemos.</p>
-                <form name="myform2">
+                <form name="myform2" method="POST" action="/Home/SendContact" >
                     <fieldset>
                         <div class="clearfix">
                             <label for="name"><span>Nombre:</span></label>
                             <div class="input">
-                                <input tabindex="1" size="18" id="name" ng-model="contact.nombre" type="text" value="" class="input-xlarge" placeholder="Nombre" required> 
+                                @Html.TextBoxFor(model => model.nombre, new { @class = "input-xlarge", placeholder = "nombre", type = "text",required=true })
+                             
                             </div>
                         </div>
 
                         <div class="clearfix">
                             <label for="email"><span>Correo:</span></label>
                             <div class="input">
-                                <input tabindex="2" ng-model="contact.email" type="email" value="" class="input-xlarge" placeholder="Correo Electronico" required>
+                                @Html.TextBoxFor(model => model.email, new { @class = "input-xlarge", placeholder = "email", type = "email", required = true })
+                              
                             </div>
                         </div>
 
                         <div class="clearfix">
                             <label for="message"><span>Mensaje:</span></label>
                             <div class="input">
-                                <textarea tabindex="3" class="input-xlarge" id="message"  ng-model="contact.msg" rows="7" placeholder="Mensaje" required></textarea>
+                                @Html.TextAreaFor(model => model.msg, new { @class = "input-xlarge", placeholder = "Mensaje", type = "text",style="height:100px", required = true })
+                             
                             </div>
                         </div>
 
                         <div class="actions">
-                            <button ng-click="Contactar($event)" tabindex="3"  class="btn btn-inverse">Enviar Mensaje</button>
+                            <button type="submit" tabindex="3"  class="btn btn-inverse">Enviar Mensaje</button>
                         </div>
                     </fieldset>
                 </form>

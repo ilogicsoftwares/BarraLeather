@@ -31,6 +31,12 @@
     <Property Name="correo" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="clave" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="fecha" Type="date" />
+    <Property Name="nombrex" Type="varchar" MaxLength="50" />
+    <Property Name="apellidos" Type="varchar" MaxLength="50" />
+    <Property Name="dni" Type="varchar" MaxLength="10" />
+    <Property Name="fechanac" Type="date" />
+    <Property Name="telefonos" Type="varchar" MaxLength="100" />
+    <Property Name="genero" Type="varchar" MaxLength="20" />
   </EntityType>
   <EntityContainer Name="tiendaModelStoreContainer">
     <EntitySet Name="category" EntityType="Self.category" Schema="tienda" store:Type="Tables" />

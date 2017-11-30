@@ -13,6 +13,10 @@ namespace BarraLeather.Models
     }
     public class EstatusLog
     {
+        public EstatusLog()
+        {
+            success = true;
+        }
         public bool error { get; set; }
         public bool success { get; set; }
         public string errorMsg { get; set; }

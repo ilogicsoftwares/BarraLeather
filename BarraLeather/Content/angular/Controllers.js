@@ -42,8 +42,7 @@
     }
 
 
-}
-]).controller('registerController', ['$scope', 'Irequest', function ($scope, Irequest) {
+}]).controller('registerController', ['$scope', 'Irequest', function ($scope, Irequest) {
     var usuario = { nombre: '', clave: '', email: '' };
     $scope.user = usuario;
     $scope.rclave = '';
@@ -65,9 +64,35 @@
             $scope.msg2 = 'Error en conexion';
         })
     }
+}]).controller('EditUserController', ['$scope', 'Irequest', function ($scope, Irequest) {
 
-}
-]).controller('menuController', ['$scope', 'Irequest', '$sce', 'Categorys', function ($scope, Irequest, $sce, Categorys) {
+    $scope.user = ActualUser;
+    $scope.user.fechanac = new Date(parseInt($scope.user.fechanac.substr(6)));
+    $scope.rclave = $scope.user.clave;
+    $scope.EditUser = function (event) {
+        if ($scope.user.clave != $scope.rclave) {
+            $scope.msg = "Las claves no coinciden";
+            return
+        }
+        if (!$scope.myform1.$valid) {
+            return;
+        }
+        event.preventDefault();
+
+        Irequest.make('POST', '/Users/Edit', $scope.user).then(function (data) {
+            if (data.success) {
+                $scope.msg = "Usuario Actualizado";
+            } else {
+                $scope.msg = "Error al Actualizar el usuario en la Base de Datos";
+            }
+         
+        }, function () {
+            $scope.msg = "Erros en la conexion con el servidor";
+        })
+    }
+
+
+}]).controller('menuController', ['$scope', 'Irequest', '$sce', 'Categorys', function ($scope, Irequest, $sce, Categorys) {
 
 
 
@@ -79,7 +104,15 @@
 
 
 
+}]).controller('DetailsController', ['$scope', 'Irequest', '$sce', function ($scope, Irequest, $sce) {
 
+    $scope.producto = producto;
+    $scope.newproducts1 = newProd.slice(0, 4);
+
+    $scope.newproducts2 = newProd.slice(4, 8);
+    Irequest.make("POST", "/Productos/GetRandom").then(function (data) {
+        $scope.ramprod = data;
+    })
 
 
 }]).controller('contactController', ['$scope', 'Irequest', '$sce', 'Categorys', '$http', function ($scope, Irequest, $sce, Categorys, $http) {;

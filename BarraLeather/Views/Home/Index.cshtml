@@ -12,7 +12,7 @@
 </head>
 <body>
 
-    <div id="wrapper" style="margin-top:50px" ng-controller="homeController">
+    <div id="wrapper"  ng-controller="homeController" style="position:relative;z-index:-2">
        
         <section class="homepage-slider" id="home-slider">
             <div class="flexslider">
@@ -40,11 +40,11 @@
             Productos de la más fina calidad, elaborados con el mejor Cuero,
             <br />Directo desde el Perú.
         </section>
-        <section class="main-content">
+        <section class="main-content" style="position:relative;z-index:-1">
             <div class="row">
                 <div class="span12">
                     <div class="row">
-                        <div class="span12">
+                        <div class="span12" style="position:relative;z-index:1">
                             <h4 class="title">
                                 <span class="pull-left"><span class="text"><span class="line">Articulos en <strong>Oferta</strong></span></span></span>
                                 <span class="pull-right">
@@ -58,9 +58,9 @@
                                             <li class="span3" ng-repeat="items in newproducts1">
                                                 <div class="product-box">
                                                     <span class="sale_tag"></span>
-                                                    <p><a href="product_detail.html"><img src="~/Content/themes/images/ladies/{{items.foto}}" alt="" /></a></p>
-                                                    <a href="product_detail.html" class="title">{{items.nombre}}</a><br />
-                                                    <a href="products.html" class="category">{{items.category}}</a>
+                                                    <p><a href="/Productos/Details/{{items.id}}"><img src="~/Content/themes/images/ladies/{{items.foto}}" alt="" /></a></p>
+                                                    <a href="/Productos/Details/{{items.id}}" class="title">{{items.nombre}}</a><br />
+                                                    <a href="" class="category">{{items.category}}</a>
                                                     <p class="price">S/. {{items.precio}}</p>
                                                 </div>
                                             </li>
@@ -71,9 +71,9 @@
                                         <ul class="thumbnails"  >
                                             <li class="span3" ng-repeat="items in newproducts2">
                                                 <div class="product-box">
-                                                    <p><a href="product_detail.html"><img src="~/Content/themes/images/ladies/{{items.foto}}" alt="" /></a></p>
-                                                    <a href="product_detail.html" class="title">{{items.nombre}}</a><br />
-                                                    <a href="products.html" class="category">{{items.category}}</a>
+                                                    <p><a href="/Productos/Details/{{items.id}}"><img src="~/Content/themes/images/ladies/{{items.foto}}" alt="" /></a></p>
+                                                    <a href="/Productos/Details/{{items.id}}" class="title">{{items.nombre}}</a><br />
+                                                    <a href="" class="category">{{items.category}}</a>
                                                     <p class="price">S/. {{items.precio}}</p>
                                                 </div>
                                             </li>
@@ -100,9 +100,9 @@
                                             <li class="span3" ng-repeat="items in offerproducts1">
                                                 <div class="product-box">
                                                     <span class="sale_tag"></span>
-                                                    <p><a href="product_detail.html"><img src="~/Content/themes/images/ladies/{{items.foto}}" alt="" /></a></p>
-                                                    <a href="product_detail.html" class="title">{{items.nombre}}</a><br />
-                                                    <a href="products.html" class="category">{{items.category}}</a>
+                                                    <p><a href="/Productos/Details/{{items.id}}"><img src="~/Content/themes/images/ladies/{{items.foto}}" alt="" /></a></p>
+                                                    <a href="/Productos/Details/{{items.id}}" class="title">{{items.nombre}}</a><br />
+                                                    <a href="" class="category">{{items.category}}</a>
                                                     <p class="price">S/. {{items.precio}}</p>
                                                 </div>
                                             </li>
@@ -112,9 +112,9 @@
                                         <ul class="thumbnails">
                                             <li class="span3" ng-repeat="items in offerproducts2">
                                                 <div class="product-box">
-                                                    <p><a href="product_detail.html"><img src="~/Content/themes/images/ladies/{{items.foto}}" alt="" /></a></p>
-                                                    <a href="product_detail.html" class="title">{{items.nombre}}</a><br />
-                                                    <a href="products.html" class="category">{{items.category}}</a>
+                                                    <p><a href="/Productos/Details/{{items.id}}"><img src="~/Content/themes/images/ladies/{{items.foto}}" alt="" /></a></p>
+                                                    <a href="/Productos/Details/{{items.id}}" class="title">{{items.nombre}}</a><br />
+                                                    <a href="" class="category">{{items.category}}</a>
                                                     <p class="price">S/. {{items.precio}}</p>
                                                 </div>
                                             </li>

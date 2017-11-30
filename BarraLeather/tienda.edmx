@@ -36,6 +36,12 @@
           <Property Name="correo" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="clave" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="fecha" Type="date" />
+          <Property Name="nombrex" Type="varchar" MaxLength="50" />
+          <Property Name="apellidos" Type="varchar" MaxLength="50" />
+          <Property Name="dni" Type="varchar" MaxLength="10" />
+          <Property Name="fechanac" Type="date" />
+          <Property Name="telefonos" Type="varchar" MaxLength="100" />
+          <Property Name="genero" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityContainer Name="tiendaModelStoreContainer">
           <EntitySet Name="category" EntityType="Self.category" Schema="tienda" store:Type="Tables" />
@@ -46,20 +52,10 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="tiendaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="users">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="correo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="clave" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="fecha" Type="DateTime" />
-        </EntityType>
         <EntityContainer Name="tiendaEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="users" EntityType="Self.users" />
           <EntitySet Name="category" EntityType="tiendaModel.category" />
           <EntitySet Name="productos" EntityType="tiendaModel.productos" />
+          <EntitySet Name="users" EntityType="tiendaModel.users" />
         </EntityContainer>
         <EntityType Name="category">
           <Key>
@@ -83,23 +79,28 @@
           <Property Name="category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="categoryid" Type="Int32" />
         </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="correo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="clave" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha" Type="DateTime" />
+          <Property Name="nombrex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="apellidos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dni" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="fechanac" Type="DateTime" />
+          <Property Name="telefonos" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="genero" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="tiendaModelStoreContainer" CdmEntityContainer="tiendaEntities">
-          <EntitySetMapping Name="users">
-            <EntityTypeMapping TypeName="tiendaModel.users">
-              <MappingFragment StoreEntitySet="users">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="correo" ColumnName="correo" />
-                <ScalarProperty Name="clave" ColumnName="clave" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="category">
             <EntityTypeMapping TypeName="tiendaModel.category">
               <MappingFragment StoreEntitySet="category">
@@ -119,6 +120,23 @@
                 <ScalarProperty Name="inventario" ColumnName="inventario" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
                 <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="tiendaModel.users">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="genero" ColumnName="genero" />
+                <ScalarProperty Name="telefonos" ColumnName="telefonos" />
+                <ScalarProperty Name="fechanac" ColumnName="fechanac" />
+                <ScalarProperty Name="dni" ColumnName="dni" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="nombrex" ColumnName="nombrex" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="clave" ColumnName="clave" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>

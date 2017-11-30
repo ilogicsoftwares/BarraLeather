@@ -205,6 +205,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Logic\logic.cs" />
     <Compile Include="Models\models.cs" />
     <Compile Include="Models\Secure.cs" />
     <Compile Include="productos.cs">
@@ -254,6 +255,8 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Msg.cshtml" />
     <Content Include="Views\Home\SendContact.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Productos\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -264,7 +267,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\themes\images\Cloth\" />
-    <Folder Include="Views\Productos\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

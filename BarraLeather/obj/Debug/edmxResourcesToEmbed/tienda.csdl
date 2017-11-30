@@ -1,19 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="tiendaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityType Name="users">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="correo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="clave" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="fecha" Type="DateTime" />
-  </EntityType>
   <EntityContainer Name="tiendaEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="users" EntityType="Self.users" />
     <EntitySet Name="category" EntityType="tiendaModel.category" />
     <EntitySet Name="productos" EntityType="tiendaModel.productos" />
+    <EntitySet Name="users" EntityType="tiendaModel.users" />
   </EntityContainer>
   <EntityType Name="category">
     <Key>
@@ -36,5 +26,21 @@
     <Property Name="status" Type="Int32" />
     <Property Name="category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="categoryid" Type="Int32" />
+  </EntityType>
+  <EntityType Name="users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="correo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="clave" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="fecha" Type="DateTime" />
+    <Property Name="nombrex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="apellidos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dni" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fechanac" Type="DateTime" />
+    <Property Name="telefonos" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="genero" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>
