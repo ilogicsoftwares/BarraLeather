@@ -1,0 +1,99 @@
+﻿@model  users
+@using System.Web.Helpers
+<div id="wrapper" ng-controller="EditUserController">
+
+    <section class="header_text sub">
+        <img class="pageBanner" src="themes/images/pageBanner.png" alt="Usuarios">
+        <h4><span>Editar Usuario</span></h4>
+    </section>
+    <section class="main-content">
+        <div class="row">
+            <div class="span5">
+                <h4 class="title"><span class="text">Datos del <strong>Usuario</strong></span></h4>
+                <form name="myform1">
+                    <input type="hidden" name="next" value="/">
+                    <fieldset>
+                        <div class="control-group">
+                            <label class="control-label">Nombres:</label>
+                            <div class="controls">
+                                <input  ng-model="user.nombrex" type="text" placeholder="Nombres" id="nombre" name="nombrex" class="input-xlarge" required>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Apellidos:</label>
+                            <div class="controls">
+                                <input ng-model="user.apellidos" type="text" placeholder="Apellidos" id="clave" name="apellidos" class="input-xlarge" required>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Correo Electronico:</label>
+                            <div class="controls">
+                                <input ng-model="user.correo" type="email" placeholder="Ingresa tu email" class="input-xlarge" required>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Clave:</label>
+                            <div class="controls">
+                                <input ng-model="user.clave" type="password" placeholder="Ingresa tu clave" class="input-xlarge" required>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Repite tu Clave</label>
+                            <div class="controls">
+                                <input ng-model="rclave" type="password" placeholder="Repite tu clave" class="input-xlarge" required>
+                            </div>
+                        </div>
+                      
+                        
+                        
+                      
+                    </fieldset>
+              
+            </div>
+          <div class="span7">
+                <h4 class="title"><span class="text">Datos <strong>Adicionales</strong></span></h4>
+              
+                    <fieldset>
+                        <div class="control-group">
+                            <label class="control-label">Numeros de Telefono:</label>
+                            <div class="controls">
+                                <input ng-model="user.telefonos" type="text" placeholder="Ingresa tus telefonos" class="input-xlarge" required>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Ingresa tu Dni:</label>
+                            <div class="controls">
+                                <input ng-model="user.dni" type="text" placeholder="DNI" class="input-xlarge" required>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Fecha de Nacimiento:</label>
+                            <div class="controls">
+                                <input ng-model="user.fechanac" type="date" class="input-xlarge" required>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Genero:</label>
+                            <div class="controls">
+                                <select ng-model="user.genero" type="date" placeholder="Ingresa tu Genero" class="input-xlarge" required>
+                                    <option>Masculino</option>
+                                    <option>Femenino</option>
+                                </select>
+                            </div>
+                        </div>
+                     
+                        <hr>
+                        <div class="actions"><input ng-click="EditUser($event)" tabindex="9" type="submit" class="btn btn-inverse large" value="Editar Cuenta"></div>
+                        <p style="color:red"><strong>{{msg}}</strong></p>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </section>
+    <script>
+        var categorys = JSON.parse('@Html.Raw(ViewBag.categorys)');
+       var ActualUser = JSON.parse('@Html.Raw(Json.Encode(ViewBag.activeuser))');
+
+    </script>
+
+</div>

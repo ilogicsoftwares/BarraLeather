@@ -1,14 +1,19 @@
-﻿using Newtonsoft.Json;
+﻿using BarraLeather.Logic;
+using BarraLeather.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
 
 namespace BarraLeather.Controllers
 {
     public class ShopController : Controller
     {
+        tiendaEntities db = new tiendaEntities();
         // GET: Shop
         public ActionResult Index()
         {
@@ -19,7 +24,7 @@ namespace BarraLeather.Controllers
         [Authorize]
         public ActionResult Cart()
         {
-            tiendaEntities db = new tiendaEntities();
+           
             var cat = db.category.OrderBy(x => x.id).ToList();
             ViewBag.categorys = JsonConvert.SerializeObject(cat);
             return View();
@@ -27,9 +32,70 @@ namespace BarraLeather.Controllers
         }
 
         // GET: Shop/Create
-        public ActionResult Create()
+        [HttpPost]
+        public JsonResult AddItem(productos producto,int cantidad)
         {
-            return View();
+            EstatusLog estatus = new EstatusLog();
+            cart carrito = new cart();
+            if (logic.ActiveUser() == null)
+            {
+                estatus.success = false;
+                estatus.errorMsg = "NotUser";
+                return Json(estatus);
+            }
+            carrito.userid = logic.ActiveUser().id;
+            carrito.prodid = producto.id;
+            carrito.cantidad = cantidad;
+            carrito.fecha = DateTime.Now;
+            try {
+                db.cart.Add(carrito);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                estatus.success = false;
+                estatus.errorMsg = ex.Message;
+            }
+            return Json(estatus);
+        }
+        
+        [Authorize]
+        [HttpPost]
+        public JsonResult DeleteItem(int id)
+        {
+            EstatusLog estatus = new EstatusLog();
+            try {
+                cart carrito = new cart { id = id };
+                db.Entry(carrito).State = EntityState.Deleted;
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                estatus.success = false;
+                estatus.errorMsg = "Error al eliminar el item del Carrito";
+            }
+           
+            return Json(estatus);
+        }
+
+        public JsonResult GetUserCart()
+        {
+           
+            var userid = logic.ActiveUser().id;
+            var carrito = db.cart.Where(x => x.userid == userid).Select(x => new
+            {
+                id = x.id,
+                x.prodid,
+                nombre = x.productos.nombre,
+                foto = x.productos.foto,
+                cantidad = x.cantidad,
+                precio = x.productos.precio,
+                subtotal = x.productos.precio * x.cantidad
+            }
+                              
+                ).ToList();
+
+            return Json(carrito, JsonRequestBehavior.AllowGet);
         }
 
         // POST: Shop/Create

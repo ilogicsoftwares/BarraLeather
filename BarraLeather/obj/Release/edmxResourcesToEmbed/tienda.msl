@@ -1,17 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="tiendaModelStoreContainer" CdmEntityContainer="tiendaEntities">
-    <EntitySetMapping Name="users">
-      <EntityTypeMapping TypeName="tiendaModel.users">
-        <MappingFragment StoreEntitySet="users">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="nombre" ColumnName="nombre" />
-          <ScalarProperty Name="correo" ColumnName="correo" />
-          <ScalarProperty Name="clave" ColumnName="clave" />
-          <ScalarProperty Name="fecha" ColumnName="fecha" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="category">
       <EntityTypeMapping TypeName="tiendaModel.category">
         <MappingFragment StoreEntitySet="category">
@@ -31,6 +20,23 @@
           <ScalarProperty Name="inventario" ColumnName="inventario" />
           <ScalarProperty Name="descripcion" ColumnName="descripcion" />
           <ScalarProperty Name="precio" ColumnName="precio" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="tiendaModel.users">
+        <MappingFragment StoreEntitySet="users">
+          <ScalarProperty Name="genero" ColumnName="genero" />
+          <ScalarProperty Name="telefonos" ColumnName="telefonos" />
+          <ScalarProperty Name="fechanac" ColumnName="fechanac" />
+          <ScalarProperty Name="dni" ColumnName="dni" />
+          <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+          <ScalarProperty Name="nombrex" ColumnName="nombrex" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="clave" ColumnName="clave" />
+          <ScalarProperty Name="correo" ColumnName="correo" />
           <ScalarProperty Name="nombre" ColumnName="nombre" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>

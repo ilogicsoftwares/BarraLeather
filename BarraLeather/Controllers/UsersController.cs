@@ -75,11 +75,11 @@ namespace BarraLeather.Controllers
                 {
                     
                     FormsAuthentication.SetAuthCookie(findUser.id.ToString(), true);
-                    estatus.success = true;
+                 
                 }
                 else
                 {
-                    estatus.error = true;
+                    estatus.success = false;
                     estatus.errorMsg = "Clave o Usuario Invalidos";
                 }
 
@@ -87,7 +87,7 @@ namespace BarraLeather.Controllers
             }
             else
             {
-                estatus.error = true;
+                estatus.success = false;
                 estatus.errorMsg = "Usuario no existe";
             }
 

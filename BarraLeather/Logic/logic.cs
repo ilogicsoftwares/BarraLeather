@@ -10,7 +10,12 @@ namespace BarraLeather.Logic
        
         public static users ActiveUser()
         {
-            tiendaEntities db = new tiendaEntities();
+            if (HttpContext.Current.User.Identity.Name == string.Empty)
+            {
+                return null;
+            }
+                tiendaEntities db = new tiendaEntities();
+            db.Configuration.ProxyCreationEnabled = false;
             var id=int.Parse(HttpContext.Current.User.Identity.Name);
             users actualuser=db.users.FirstOrDefault(x => x.id == id);
             return actualuser;

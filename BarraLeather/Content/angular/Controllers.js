@@ -107,13 +107,66 @@
 }]).controller('DetailsController', ['$scope', 'Irequest', '$sce', function ($scope, Irequest, $sce) {
 
     $scope.producto = producto;
+    $scope.cantidad = 1;
     $scope.newproducts1 = newProd.slice(0, 4);
 
     $scope.newproducts2 = newProd.slice(4, 8);
     Irequest.make("POST", "/Productos/GetRandom").then(function (data) {
         $scope.ramprod = data;
     })
+    $scope.addItem = function () {
+        Irequest.make("POST", "/Shop/AddItem", { producto: $scope.producto, cantidad: $scope.cantidad }).then(function (data) {
+            if (!data.success) {
+                if (data.errorMsg == "NotUser")
+                {
+                    window.location.replace("/Users/Register");
+                }
+                $scope.msg = data.errorMsg;
+            }
+            $scope.msg = "Se agrego al Carrito";
 
+        })
+    }
+}]).controller('CartController', ['$scope', 'Irequest', '$sce', function ($scope, Irequest, $sce) {
+
+    $scope.cart = [];
+    var toDelete = [];
+    Irequest.make("POST", "/Productos/GetRandom").then(function (data) {
+        $scope.ramprod = data;
+    })
+    Irequest.make("GET", "/Shop/GetUserCart").then(function (data) {
+        $scope.cart = data;
+        $scope.total = function () {
+            var a = 0
+            $scope.cart.forEach(function (item) {
+                a += item.cantidad * item.precio;
+                
+            })
+            return a;
+        }
+
+    })
+
+    $scope.remove = function (index,item) {
+      
+        Irequest.make("POST", "/Shop/DeleteItem", item)
+            .then(function (data) {
+                if (data.success)
+                {
+                    $scope.cart.splice(index, 1);
+                } else {
+                    window.alert(data.errorMsg);
+                }
+
+            }, function () {
+                window.alert("Error de conexion");
+            })
+
+       
+    }
+
+
+  
 
 }]).controller('contactController', ['$scope', 'Irequest', '$sce', 'Categorys', '$http', function ($scope, Irequest, $sce, Categorys, $http) {;
 

@@ -54,6 +54,7 @@ namespace BarraLeather.Controllers
         // GET: Productos/Edit/5
         public ActionResult Details(int id)
         {
+            db.Configuration.ProxyCreationEnabled = false;
             var cat = db.category.OrderBy(x => x.id).ToList();
             ViewBag.categorys = JsonConvert.SerializeObject(cat);
             var producto = db.productos.FirstOrDefault(x => x.id == id);
@@ -87,6 +88,7 @@ namespace BarraLeather.Controllers
 
         public JsonResult GetRandom()
         {
+            db.Configuration.ProxyCreationEnabled = false;
             Random rand = new Random();
             int toSkip = rand.Next(1, db.productos.Count());
 

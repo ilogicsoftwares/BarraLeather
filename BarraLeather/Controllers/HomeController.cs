@@ -13,10 +13,12 @@ namespace BarraLeather.Controllers
     public class HomeController : Controller
     {
         // GET: Home
+
         public ActionResult Index()
         {
 
             tiendaEntities db = new tiendaEntities();
+            db.Configuration.ProxyCreationEnabled = false;
             var cat = db.category.OrderBy(x => x.id).ToList();
             ViewBag.offerProd = JsonConvert.SerializeObject(db.productos.Where(x => x.status == 1).Take(8).ToList());
             ViewBag.NewProd = JsonConvert.SerializeObject(db.productos.Where(x => x.status == 0).Take(8).ToList());

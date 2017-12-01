@@ -18,6 +18,7 @@ namespace BarraLeather
         public tiendaEntities()
             : base("name=tiendaEntities")
         {
+           // Configuration.ProxyCreationEnabled = false;//this is line to be added
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -26,6 +27,7 @@ namespace BarraLeather
         }
     
         public DbSet<category> category { get; set; }
+        public DbSet<cart> cart { get; set; }
         public DbSet<productos> productos { get; set; }
         public DbSet<users> users { get; set; }
     }

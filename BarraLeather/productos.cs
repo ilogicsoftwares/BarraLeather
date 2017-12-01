@@ -14,6 +14,11 @@ namespace BarraLeather
     
     public partial class productos
     {
+        public productos()
+        {
+            this.cart = new HashSet<cart>();
+        }
+    
         public int id { get; set; }
         public string nombre { get; set; }
         public Nullable<float> precio { get; set; }
@@ -23,5 +28,7 @@ namespace BarraLeather
         public Nullable<int> status { get; set; }
         public string category { get; set; }
         public Nullable<int> categoryid { get; set; }
+    
+        public virtual ICollection<cart> cart { get; set; }
     }
 }

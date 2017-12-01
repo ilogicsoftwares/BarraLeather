@@ -64,3 +64,12 @@ C:\BarraLeather\BarraLeather\bin\es\System.Web.Mvc.resources.dll
 C:\BarraLeather\BarraLeather\obj\Debug\BarraLeather.csprojResolveAssemblyReference.cache
 C:\BarraLeather\BarraLeather\obj\Debug\BarraLeather.dll
 C:\BarraLeather\BarraLeather\obj\Debug\BarraLeather.pdb
+C:\BarraLeather\BarraLeather\bin\Microsoft.Owin.dll
+C:\BarraLeather\BarraLeather\bin\Owin.dll
+C:\BarraLeather\BarraLeather\bin\Microsoft.Owin.xml
+C:\BarraLeather\BarraLeather\bin\System.Net.Http.Formatting.dll
+C:\BarraLeather\BarraLeather\bin\System.Web.Http.dll
+C:\BarraLeather\BarraLeather\bin\System.Web.Http.WebHost.dll
+C:\BarraLeather\BarraLeather\bin\System.Net.Http.Formatting.xml
+C:\BarraLeather\BarraLeather\bin\System.Web.Http.xml
+C:\BarraLeather\BarraLeather\bin\System.Web.Http.WebHost.xml

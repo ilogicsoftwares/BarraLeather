@@ -14,6 +14,11 @@ namespace BarraLeather
     
     public partial class users
     {
+        public users()
+        {
+            this.cart = new HashSet<cart>();
+        }
+    
         public int id { get; set; }
         public string nombre { get; set; }
         public string correo { get; set; }
@@ -25,5 +30,8 @@ namespace BarraLeather
         public Nullable<System.DateTime> fechanac { get; set; }
         public string telefonos { get; set; }
         public string genero { get; set; }
+        public string descripcion { get; set; }
+    
+        public virtual ICollection<cart> cart { get; set; }
     }
 }
