@@ -1,0 +1,97 @@
+﻿<body ng-controller="ShopController">
+
+    <div id="wrapper">
+
+
+        <section class="header_text sub">
+            <img class="pageBanner" src="themes/images/pageBanner.png">
+            <h4><span>Tienda On-Line</span></h4>
+        </section>
+        <section class="main-content">
+            <div class="row">
+                <div class="span9">
+                    <h4 class="title"><span class="text">CATEGORIA: <strong>{{category}}</strong></span></h4>
+                    <div style="overflow-y:auto!important;overflow-x:auto;height:600px!important">
+                        <table class="table table-striped">
+                            <thead>
+                               
+                            </thead>
+
+                            <tbody>
+
+                                <tr ng-repeat="item in shop track by $index">
+
+                                    <td style="width:200px"><a href="/Productos/Details/{{item.id}}"><img class="img-responsive" width="200" style="min-width:10%"  src="~/Content/themes/images/ladies/{{item.foto}}"></a></td>
+                                    <td>
+                                        <a href="/Productos/Details/{{item.id}}">
+                                            <p style="font-size:1.4em">{{item.nombre}}</p>
+                                            <p style="font-size:1.0em">{{item.descripcion}}</p>
+                                            <p style="font-size:2.0em"><strong>S/.{{item.precio}}</strong></p>
+                                            <p style="font-size:1.0em">Exist.{{item.inventario}}</p>
+                                        </a>
+                                   </td>
+                                   
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+
+                </div>
+                <div style="padding-top:18px" class="span3 col">
+
+                    <div class="block">
+                        <h4 class="title">
+                            <span class="pull-left"><span class="text">Randomize</span></span>
+
+                        </h4>
+                        <div id="myCarousel-1" class="carousel slide">
+                            <div class="carousel-inner">
+                                <div class="active item">
+                                    <ul class="thumbnails listing-products">
+                                        <li class="span3">
+                                            <div class="product-box">
+                                                <span class="sale_tag"></span>
+                                                <a href="/Productos/Details/{{ramprod.id}}"><img alt="" src="~/Content/themes/images/ladies/{{ramprod.foto}}"></a><br />
+                                                <a href="/Productos/Details/{{ramprod.id}}" class="title">{{ramprod.nombre}}</a><br />
+                                                <a href="" class="category">{{ramprod.category}}</a>
+                                                <p class="price">S/. {{ramprod.precio}}</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <style>
+        .table {
+   display: table;
+   border-collapse: collapse;
+}
+ 
+.table .table-row {
+   display: table-row;
+}
+ 
+.table .table-cell {
+   display: table-cell;
+   text-align: left;
+   vertical-align: top;
+   border: 1px solid black;
+}
+    </style>
+    <script>
+			
+        var categorys = JSON.parse('@Html.Raw(ViewBag.categorys)');
+        var category = '@ViewBag.category';
+        var shopx = JSON.parse('@Html.Raw(ViewBag.shop)');
+    </script>
+</body>

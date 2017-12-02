@@ -82,7 +82,8 @@
 
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li style="position:relative;z-index:10000" ng-repeat="items in categorias"><a href="#">{{items.name}}</a></li>
+                                        <li style="position:relative;z-index:10000"><a href="/Shop/category">Todas</a></li>
+                                        <li style="position:relative;z-index:10000" ng-repeat="items in categorias"><a href="/Shop/Getcategory/{{items.id}}">{{items.name}}</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="#"><h4 style="margin:0px">OFERTAS</h4></a> </li>
@@ -94,6 +95,7 @@
 
                                         </a>
                                         <ul class="dropdown-menu">
+                                            <li><a style="position:relative;z-index:10000" href="/Shop/Cart">Mi Carrito</a></li>
                                             <li><a style="position:relative;z-index:10000" href="/Users/Edit">Perfil</a></li>
                                             <li><a style="position:relative;z-index:10000" href="/Users/Logout">Salir</a></li>
                                         </ul>
@@ -154,7 +156,8 @@
 
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li ng-repeat="items in categorias"><a href="#">{{items.name}}</a></li>
+                                            <li style="position:relative;z-index:10000"><a href="/Shop/category">Todas</a></li>
+                                            <li style="position:relative;z-index:10000" ng-repeat="items in categorias"><a href="/Shop/Getcategory/{{items.id}}">{{items.name}}</a></li>
                                         </ul>
                                     </li>
                                    <li ><a href="#"><h4 style="margin:0px">OFERTAS</h4></a> </li>  

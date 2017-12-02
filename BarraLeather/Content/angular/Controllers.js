@@ -55,7 +55,8 @@
         Irequest.make('post', '/Users/Register', usuario).then(function (data) {
 
             if (data.success) {
-                window.location.replace("/Users/Validate");
+                //  window.location.replace("/Users/Validate");
+                window.alert("Usuario Creado");
             } else {
                 $scope.msg2 = data.errorMsg;
             }
@@ -67,7 +68,7 @@
 }]).controller('EditUserController', ['$scope', 'Irequest', function ($scope, Irequest) {
 
     $scope.user = ActualUser;
-    $scope.user.fechanac = new Date(parseInt($scope.user.fechanac.substr(6)));
+    $scope.user.fechanac =  $scope.user.fechanac!=null ? new Date(parseInt($scope.user.fechanac.substr(6))):null;
     $scope.rclave = $scope.user.clave;
     $scope.EditUser = function (event) {
         if ($scope.user.clave != $scope.rclave) {
@@ -127,6 +128,14 @@
 
         })
     }
+}]).controller('ShopController', ['$scope', 'Irequest', '$sce', function ($scope, Irequest, $sce) {
+    $scope.shop = shopx;
+    $scope.categorys = categorys;
+    Irequest.make("POST", "/Productos/GetRandom").then(function (data) {
+        $scope.ramprod = data;
+    })
+    $scope.category = category;
+
 }]).controller('CartController', ['$scope', 'Irequest', '$sce', function ($scope, Irequest, $sce) {
 
     $scope.cart = [];

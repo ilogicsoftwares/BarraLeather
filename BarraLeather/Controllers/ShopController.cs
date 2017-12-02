@@ -115,9 +115,26 @@ namespace BarraLeather.Controllers
         }
 
         // GET: Shop/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Category()
         {
+            db.Configuration.ProxyCreationEnabled = false;
+            var allprods = db.productos.ToList();
+            ViewBag.shop= JsonConvert.SerializeObject(allprods);
+            var cat = db.category.OrderBy(x => x.id).ToList();
+            ViewBag.categorys = JsonConvert.SerializeObject(cat);
+            ViewBag.category = "Todas";
             return View();
+        }
+        
+        public ActionResult GetCategory(int id)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var allprods = db.productos.Where(x=>x.categoryid==id).ToList();
+            ViewBag.shop = JsonConvert.SerializeObject(allprods);
+            var cat = db.category.OrderBy(x => x.id).ToList();
+            ViewBag.categorys = JsonConvert.SerializeObject(cat);
+            ViewBag.category = cat.FirstOrDefault(x=>x.id==id).name;
+            return View(@"~\Views\Shop\Category.cshtml");
         }
 
         // POST: Shop/Edit/5
