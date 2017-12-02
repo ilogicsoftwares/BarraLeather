@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="tiendaModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="tiendaModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="cart">
     <Key>
       <PropertyRef Name="id" />
@@ -17,6 +17,34 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="href" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="pedidos">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="pedidoid" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userid" Type="int" Nullable="false" />
+    <Property Name="prodid" Type="int" Nullable="false" />
+    <Property Name="cantidad" Type="int" Nullable="false" />
+    <Property Name="pedidoid" Type="int" Nullable="false" />
+    <Property Name="subtotal" Type="decimal" Precision="11" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="pedidosex">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userid" Type="int" Nullable="false" />
+    <Property Name="subtotal" Type="decimal" Precision="11" Scale="2" Nullable="false" />
+    <Property Name="impuesto" Type="decimal" Precision="11" Scale="2" Nullable="false" />
+    <Property Name="montoEntrega" Type="decimal" Precision="11" Scale="2" Nullable="false" />
+    <Property Name="estatus" Type="int" Nullable="false" />
+    <Property Name="fecha" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="fechadepago" Type="datetime" Precision="0" />
+    <Property Name="mododepago" Type="int" Nullable="false" />
+    <Property Name="direccionEntrega" Type="longtext" />
+    <Property Name="total" Type="decimal" Precision="11" Scale="2" />
   </EntityType>
   <EntityType Name="productos">
     <Key>
@@ -47,7 +75,7 @@
     <Property Name="fechanac" Type="date" />
     <Property Name="telefonos" Type="varchar" MaxLength="100" />
     <Property Name="genero" Type="varchar" MaxLength="20" />
-    <Property Name="descripcion" Type="longtext" />
+    <Property Name="direccionEntrega" Type="longtext" />
   </EntityType>
   <Association Name="prodcartid">
     <End Role="productos" Type="Self.productos" Multiplicity="1" />
@@ -76,6 +104,8 @@
   <EntityContainer Name="tiendaModelStoreContainer">
     <EntitySet Name="cart" EntityType="Self.cart" Schema="tienda" store:Type="Tables" />
     <EntitySet Name="category" EntityType="Self.category" Schema="tienda" store:Type="Tables" />
+    <EntitySet Name="pedidos" EntityType="Self.pedidos" Schema="tienda" store:Type="Tables" />
+    <EntitySet Name="pedidosex" EntityType="Self.pedidosex" Schema="tienda" store:Type="Tables" />
     <EntitySet Name="productos" EntityType="Self.productos" Schema="tienda" store:Type="Tables" />
     <EntitySet Name="users" EntityType="Self.users" Schema="tienda" store:Type="Tables" />
     <AssociationSet Name="prodcartid" Association="Self.prodcartid">

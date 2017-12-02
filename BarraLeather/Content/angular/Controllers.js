@@ -173,7 +173,45 @@
 
        
     }
+    $scope.Modal = function (id, BoolShow) {
+        var dis = "block";
+        if (!BoolShow) {
+            dis="none"
+        }
+        document.getElementById(id).style.display = dis;
 
+    }
+    $scope.Process = function () {
+        Irequest.make("POST", "/Shop/Process").then(function (data) {
+            if(!data.success)
+            {
+                window.alert("Error al procesar el pedido intente mas tarde");
+            }
+            window.location.replace("/Shop/Pedidos");
+        })
+
+    }
+
+    
+}]).controller('PedidosController', ['$scope', 'Irequest', '$sce', function ($scope, Irequest, $sce) {
+
+    $scope.pedidos =pedidos;
+   
+    Irequest.make("POST", "/Productos/GetRandom").then(function (data) {
+        $scope.ramprod = data;
+    })
+  
+   
+
+
+    $scope.Modal = function (id, BoolShow) {
+        var dis = "block";
+        if (!BoolShow) {
+            dis = "none"
+        }
+        document.getElementById(id).style.display = dis;
+
+    }
 
   
 

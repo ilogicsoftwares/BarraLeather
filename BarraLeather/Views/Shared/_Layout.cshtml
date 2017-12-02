@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barra Leather, Venta de Articulos de Cuero</title>
     <!--[if ie]><meta content='IE=8' http-equiv='X-UA-Compatible'/><![endif]-->
-   <link href="~/Content/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <link href="~/Content/w3.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="~/Content/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
     
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -69,7 +71,13 @@
                          </a>
                        
                         <!-- Be sure to leave the brand out there if you want it shown -->
-                        <a class="brand  hidden-xs" href="#">DAYS OFF! Tiempo 00:08:17:19</a>
+                        <a style="padding-right:2px;padding-left:0px" class="brand hidden-xs" href="/home"> <img class="hidden" width="100"  src="~/Content/themes/images/logo.png" />DAYS OFF! Tiempo 00:08:17:19</a>
+                        <div class="span6 center hidden hidden-xs">
+                            <div class="input-append" style="width:100%">
+                                <input type="text" class="input-large" placeholder="Buscar por Ej. Mochila" style="width:100%;margin-top:8px" ng-model="buscar">
+                                <a href="/Shop/Search/?nombre={{buscar}}"><i style="margin-top:8px" class="add-on fa fa-search" aria-hidden="true"></i></a>
+                            </div>
+                        </div>  
                         <a class="brand-rigth  hidden-xs" href="#"><span><i class="fa fa-youtube  pull-right"> </i></span></a>
                         <a class="brand-rigth  hidden-xs" href="#"><span><i class="fa fa-instagram  pull-right"> </i></span></a>
                         <a class="brand-rigth  hidden-xs" href="#"><span><i class="fa fa-facebook  pull-right"> </i></span></a>
@@ -235,21 +243,21 @@
       
     </div>
     <script>
-        /*$(document).ready(function () {
-            var stickyNavTop = $('.navbar-fixed-top.main-menu').offset().top;
+       $(document).ready(function () {
+           var stickyNavTop = $('.main-menu.hidden-xs').offset().top;
 
             var stickyNav = function () {
                 var scrollTop = $(window).scrollTop();
 
                 if (scrollTop > stickyNavTop) {
-                    $('.navbar-fixed-top.main-menu').addClass('navbar-fixed-top');
-                    $('.navbar-fixed-top.main-menu').css("opacity", "0.9");
-                    $('.navbar-fixed-top.main-menu').css("margin-top", "0px");
-
+                    $('div.span6.center.hidden-xs').removeClass('hidden');
+                    
+                    $('a.brand.hidden-xs img').removeClass('hidden');
+                   
+                    
                 } else {
-                    $('.navbar-fixed-top.main-menu').removeClass('navbar-fixed-top');
-                    $('.navbar-fixed-top.main-menu').css("margin-top", "30px");
-                    $('#menu ul li ').css("z-index",    "1000");
+                    $('div.span6.center.hidden-xs').addClass('hidden');
+                    $('a.brand.hidden-xs img').addClass('hidden');
 
                 }
             };
@@ -259,7 +267,7 @@
             $(window).scroll(function () {
                 stickyNav();
             });
-        });*/
+        });
 
     </script>
    <!-- <script src="~/Scripts/jquery-1.10.2.min.js"></script>
@@ -281,5 +289,9 @@
 			});
 
     </script>
+
+    <style>
+ 
+    </style>
 </body>
 </html>

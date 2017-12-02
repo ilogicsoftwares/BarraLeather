@@ -192,6 +192,7 @@
     <Content Include="Content\themes\js\jquery.flexslider-min.js" />
     <Content Include="Content\themes\js\jquery.scrolltotop.js" />
     <Content Include="Content\themes\js\superfish.js" />
+    <Content Include="Content\w3.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -233,6 +234,12 @@
     <Compile Include="Logic\logic.cs" />
     <Compile Include="Models\models.cs" />
     <Compile Include="Models\Secure.cs" />
+    <Compile Include="pedidos.cs">
+      <DependentUpon>tienda.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pedidosex.cs">
+      <DependentUpon>tienda.tt</DependentUpon>
+    </Compile>
     <Compile Include="productos.cs">
       <DependentUpon>tienda.tt</DependentUpon>
     </Compile>
@@ -270,13 +277,6 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Users\Register.cshtml" />
     <Content Include="Views\Shop\Cart.cshtml" />
-    <EntityDeploy Include="tienda.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>tienda.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="tienda.edmx.diagram">
-      <DependentUpon>tienda.edmx</DependentUpon>
-    </Content>
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Msg.cshtml" />
@@ -284,6 +284,15 @@
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Productos\Details.cshtml" />
     <Content Include="Views\Shop\Category.cshtml" />
+    <EntityDeploy Include="tienda.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>tienda.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="tienda.edmx.diagram">
+      <DependentUpon>tienda.edmx</DependentUpon>
+    </Content>
+    <Content Include="Views\Shop\Process.cshtml" />
+    <Content Include="Views\Shop\Pedidos.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

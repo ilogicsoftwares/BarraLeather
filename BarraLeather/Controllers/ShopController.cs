@@ -156,26 +156,61 @@ namespace BarraLeather.Controllers
             ViewBag.category = "Busqueda";
             return View(@"~\Views\Shop\Category.cshtml");
         }
-
-        // POST: Shop/Edit/5
+        [Authorize]
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public JsonResult Process()
         {
-            try
-            {
-                // TODO: Add update logic here
+            EstatusLog estatus = new EstatusLog();
+          try { 
+            var actualUser = logic.ActiveUser();
+              
+                var selectCart = db.cart.Where(x => x.userid == actualUser.id).ToList();
+               
+                pedidosex pedido = new pedidosex();
+            pedido.fecha = DateTime.Now;
+            pedido.estatus = 0;
+            pedido.userid = actualUser.id;
+            pedido.total = (decimal)(selectCart.Sum(x => x.cantidad * x.productos.precio));
+            pedido.subtotal =(decimal)(pedido.total);
+            pedido.impuesto = 0;
+            pedido.montoEntrega = 0;
+            pedido.mododepago = 0;
+            pedido.direccionEntrega = actualUser.direccionEntrega;
 
-                return RedirectToAction("Index");
+            db.pedidosex.Add(pedido);
+              
+                db.SaveChanges();
+
+                var detallePedido = selectCart.Select(x => new pedidos
+                {
+                    userid = actualUser.id,
+                    prodid = x.prodid,
+                    cantidad = x.cantidad,
+                    pedidoid = pedido.id,
+                    subtotal=(decimal)(x.cantidad * x.productos.precio)
+                });
+                db.pedidos.AddRange(detallePedido);
+                db.cart.RemoveRange(db.cart.Where(x => x.userid == actualUser.id));
+                db.SaveChanges();
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                estatus.success = false;
+                estatus.errorMsg = "Error al Crear el pedido";
             }
+            return Json(estatus);
         }
 
+       
+
         // GET: Shop/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Pedidos()
         {
+            var cat = db.category.OrderBy(x => x.id).ToList();
+            ViewBag.categorys = JsonConvert.SerializeObject(cat);
+            var userid = logic.ActiveUser().id;
+            var pedidos = db.pedidosex.Where(x => x.userid ==userid).ToList();
+            ViewBag.pedidos = JsonConvert.SerializeObject(pedidos);
             return View();
         }
 

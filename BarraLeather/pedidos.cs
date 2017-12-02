@@ -12,15 +12,13 @@ namespace BarraLeather
     using System;
     using System.Collections.Generic;
     
-    public partial class cart
+    public partial class pedidos
     {
         public int id { get; set; }
         public int userid { get; set; }
         public int prodid { get; set; }
         public int cantidad { get; set; }
-        public Nullable<System.DateTime> fecha { get; set; }
-    
-        public virtual productos productos { get; set; }
-        public virtual users users { get; set; }
+        public int pedidoid { get; set; }
+        public decimal subtotal { get; set; }
     }
 }

@@ -4,14 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cba7052959a641f0a3e2986d46c989d5" Name="Diagram1">
-        <EntityTypeShape EntityType="tiendaModel.category" Width="1.5" PointX="5.375" PointY="3.5" />
-        <EntityTypeShape EntityType="tiendaModel.cart" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="tiendaModel.productos" Width="1.5" PointX="0.75" PointY="7" />
-        <EntityTypeShape EntityType="tiendaModel.users" Width="1.5" PointX="0.75" PointY="2.625" />
-        <AssociationConnector Association="tiendaModel.prodcartid" />
+      <Diagram DiagramId="303b1ea38b9d4daabe0e467ff311fcf1" Name="Diagram1">
+        <EntityTypeShape EntityType="tiendaModel.cart" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="tiendaModel.category" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="tiendaModel.pedidos" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="tiendaModel.productos" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="tiendaModel.prodcartid" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="tiendaModel.users" Width="1.5" PointX="0.75" PointY="8" />
         <AssociationConnector Association="tiendaModel.usercartid" />
-        </Diagram>
+        <EntityTypeShape EntityType="tiendaModel.pedidosex" Width="1.5" PointX="5.375" PointY="0.75" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

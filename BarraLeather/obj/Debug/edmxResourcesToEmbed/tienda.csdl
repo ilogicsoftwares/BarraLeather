@@ -1,27 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="tiendaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityContainer Name="tiendaEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="category" EntityType="tiendaModel.category" />
-    <EntitySet Name="cart" EntityType="tiendaModel.cart" />
-    <EntitySet Name="productos" EntityType="tiendaModel.productos" />
-    <EntitySet Name="users" EntityType="tiendaModel.users" />
-    <AssociationSet Name="prodcartid" Association="tiendaModel.prodcartid">
-      <End Role="productos" EntitySet="productos" />
-      <End Role="cart" EntitySet="cart" />
-    </AssociationSet>
-    <AssociationSet Name="usercartid" Association="tiendaModel.usercartid">
-      <End Role="users" EntitySet="users" />
-      <End Role="cart" EntitySet="cart" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="category">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="href" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-  </EntityType>
   <EntityType Name="cart">
     <Key>
       <PropertyRef Name="id" />
@@ -31,8 +9,28 @@
     <Property Name="prodid" Type="Int32" Nullable="false" />
     <Property Name="cantidad" Type="Int32" Nullable="false" />
     <Property Name="fecha" Type="DateTime" />
-    <NavigationProperty Name="productos" Relationship="tiendaModel.prodcartid" FromRole="cart" ToRole="productos" />
+    <NavigationProperty Name="productos" Relationship="Self.prodcartid" FromRole="cart" ToRole="productos" />
     <NavigationProperty Name="users" Relationship="tiendaModel.usercartid" FromRole="cart" ToRole="users" />
+  </EntityType>
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="href" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="pedidos">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="pedidoid" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userid" Type="Int32" Nullable="false" />
+    <Property Name="prodid" Type="Int32" Nullable="false" />
+    <Property Name="cantidad" Type="Int32" Nullable="false" />
+    <Property Name="pedidoid" Type="Int32" Nullable="false" />
+    <Property Name="subtotal" Type="Decimal" Nullable="false" />
   </EntityType>
   <EntityType Name="productos">
     <Key>
@@ -47,8 +45,36 @@
     <Property Name="status" Type="Int32" />
     <Property Name="category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="categoryid" Type="Int32" />
-    <NavigationProperty Name="cart" Relationship="tiendaModel.prodcartid" FromRole="productos" ToRole="cart" />
+    <NavigationProperty Name="cart" Relationship="Self.prodcartid" FromRole="productos" ToRole="cart" />
   </EntityType>
+  <Association Name="prodcartid">
+    <End Role="productos" Type="Self.productos" Multiplicity="1" />
+    <End Role="cart" Type="Self.cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="cart">
+        <PropertyRef Name="prodid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="tiendaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="cart" EntityType="Self.cart" />
+    <EntitySet Name="category" EntityType="Self.category" />
+    <EntitySet Name="pedidos" EntityType="Self.pedidos" />
+    <EntitySet Name="productos" EntityType="Self.productos" />
+    <AssociationSet Name="prodcartid" Association="Self.prodcartid">
+      <End Role="productos" EntitySet="productos" />
+      <End Role="cart" EntitySet="cart" />
+    </AssociationSet>
+    <EntitySet Name="users" EntityType="tiendaModel.users" />
+    <AssociationSet Name="usercartid" Association="tiendaModel.usercartid">
+      <End Role="users" EntitySet="users" />
+      <End Role="cart" EntitySet="cart" />
+    </AssociationSet>
+    <EntitySet Name="pedidosex" EntityType="tiendaModel.pedidosex" />
+  </EntityContainer>
   <EntityType Name="users">
     <Key>
       <PropertyRef Name="id" />
@@ -64,21 +90,9 @@
     <Property Name="fechanac" Type="DateTime" />
     <Property Name="telefonos" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="genero" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="descripcion" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+    <Property Name="direccionEntrega" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="cart" Relationship="tiendaModel.usercartid" FromRole="users" ToRole="cart" />
   </EntityType>
-  <Association Name="prodcartid">
-    <End Type="tiendaModel.productos" Role="productos" Multiplicity="1" />
-    <End Type="tiendaModel.cart" Role="cart" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="productos">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="cart">
-        <PropertyRef Name="prodid" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="usercartid">
     <End Type="tiendaModel.users" Role="users" Multiplicity="1" />
     <End Type="tiendaModel.cart" Role="cart" Multiplicity="*" />
@@ -91,4 +105,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="pedidosex">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userid" Type="Int32" Nullable="false" />
+    <Property Name="subtotal" Type="Decimal" Nullable="false" />
+    <Property Name="impuesto" Type="Decimal" Nullable="false" />
+    <Property Name="montoEntrega" Type="Decimal" Nullable="false" />
+    <Property Name="estatus" Type="Int32" Nullable="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" />
+    <Property Name="fechadepago" Type="DateTime" />
+    <Property Name="mododepago" Type="Int32" Nullable="false" />
+    <Property Name="direccionEntrega" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+    <Property Name="total" Type="Decimal" />
+  </EntityType>
 </Schema>
