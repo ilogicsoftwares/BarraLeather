@@ -58,7 +58,7 @@ namespace BarraLeather.Controllers
                 var smtp = new SmtpClient
                 { //port 587
                     Host = "smtpout.secureserver.net",
-                    Port = 80,
+                    Port = 25,
                     EnableSsl = false,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
                     UseDefaultCredentials = false,

@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 
@@ -166,7 +168,7 @@ namespace BarraLeather.Controllers
               
                 var selectCart = db.cart.Where(x => x.userid == actualUser.id).ToList();
                
-                pedidosex pedido = new pedidosex();
+            pedidosex pedido = new pedidosex();
             pedido.fecha = DateTime.Now;
             pedido.estatus = 0;
             pedido.userid = actualUser.id;
@@ -190,10 +192,21 @@ namespace BarraLeather.Controllers
                     subtotal=(decimal)(x.cantidad * x.productos.precio)
                 });
                 db.pedidos.AddRange(detallePedido);
+                try {
+                    SendMail(pedido);
+                }
+                catch
+                {
+
+                }
+                
+
                 db.cart.RemoveRange(db.cart.Where(x => x.userid == actualUser.id));
                 db.SaveChanges();
+
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 estatus.success = false;
                 estatus.errorMsg = "Error al Crear el pedido";
@@ -204,13 +217,35 @@ namespace BarraLeather.Controllers
        
 
         // GET: Shop/Delete/5
+        [Authorize]
         public ActionResult Pedidos()
         {
             var cat = db.category.OrderBy(x => x.id).ToList();
             ViewBag.categorys = JsonConvert.SerializeObject(cat);
             var userid = logic.ActiveUser().id;
-            var pedidos = db.pedidosex.Where(x => x.userid ==userid).ToList();
+            var pedidos = db.pedidosex.Where(x => x.userid ==userid).OrderByDescending(x=>x.fecha).ToList();
             ViewBag.pedidos = JsonConvert.SerializeObject(pedidos);
+            return View();
+        }
+        [Authorize]
+        public ActionResult PedidoDet(int id)
+        {
+            var cat = db.category.OrderBy(x => x.id).ToList();
+            ViewBag.categorys = JsonConvert.SerializeObject(cat);
+            var userid = logic.ActiveUser().id;
+            var pedido = db.pedidos.Where(x => x.pedidoid == id && x.userid==userid).Select(
+                x=> new
+                {
+                    x.prodid,
+                    x.productos.foto,
+                    x.productos.nombre,
+                    x.cantidad,
+                    x.productos.precio,
+
+                }
+                ).ToList();
+            ViewBag.pedido = JsonConvert.SerializeObject(pedido);
+            ViewBag.pedidoId = id;
             return View();
         }
 
@@ -229,5 +264,84 @@ namespace BarraLeather.Controllers
                 return View();
             }
         }
+        private  void SendMail(pedidosex pedido)
+        {
+            var contact = logic.ActiveUser();
+            var actualUser = contact;
+            var selectCart = db.cart.Where(x => x.userid == actualUser.id).ToList();
+
+            string msg = "";
+            msg += "<head><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'></head><body>";
+            msg += "<h1> Pedido # <strong>" + pedido.id + "</strong></h1>";
+            msg += "<table style='border:1px solid black' class='table'>";
+            msg += "<thead>" +
+                            "<tr>" +
+                               "<th style='border:1px solid black'> Nombre del Producto</th>" +
+                                     "<th style='border:1px solid black'> Cantidad </th>" +
+                                      "<th style='border:1px solid black'> Precio Unitario </th>" +
+                                      " <th style='border:1px solid black'> Total </th>" +
+                                       "</tr>" +
+                   "</thead>";
+            msg += "<tbody>";
+            foreach (var item in selectCart)
+            {
+                msg += "<tr>";
+                msg += "<td style='border:1px solid black'>" + item.productos.nombre + "</td>";
+                msg += "<td style='border:1px solid black'>" + item.cantidad.ToString() + "</td>";
+                msg += "<td style='border:1px solid black'>" + item.productos.precio.ToString() + "</td>";
+                msg += "<td style='border:1px solid black'>" + (item.cantidad * item.productos.precio).ToString() + "</td>";
+                msg += "<tr>";
+            }
+            msg += "</tbody>";
+            msg += "</table>";
+            msg += "<p>" +
+                    "<strong>Sub-Total:S/." + pedido.total.ToString() + "<br>" +
+                    "<strong>Impuesto(0.00)</strong>:S/." + pedido.impuesto + "<br>" +
+                    "<strong>Reparto(0.00)</strong>: S/." + pedido.montoEntrega.ToString() + "<br>" +
+                    "<strong>Total</strong>: S/." + pedido.total +
+                   "</p>";
+            msg += "<h1>Datos del Cliente:</h1>";
+            msg += "<p>" +
+                    "<strong>Nombre:" + actualUser.nombrex + " " + actualUser.apellidos + "<br>" +
+                    "<strong>Dni:" + actualUser.dni + "<br>" +
+                    "<strong>Telefono:" + actualUser.telefonos + "<br>" +
+                    "<strong>Correo:" + actualUser.correo + "<br>" +
+                    "<strong>Direccion de Entrega:" + actualUser.direccionEntrega +
+                   "</p></body>";
+          
+
+            var fromAddress = new MailAddress("admin@ilogicsoftwares.com", contact.nombre + " " + contact.correo);
+            var toAddress = new MailAddress("barralizaraso10@gmail.com", "barraleather");
+            // var toAddress = new MailAddress("barralizaraso10@gmail.com", "barraleather");
+            const string fromPassword = "MINICO209#";
+            string subject = "Pedido # " + pedido.id.ToString() + " de " + contact.nombrex + " " + contact.apellidos;
+            string body = msg;
+
+            var smtp = new SmtpClient
+            { //port 587
+                Host = "smtpout.secureserver.net",
+                Port = 25,
+                EnableSsl = false,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
+
+
+            };
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                IsBodyHtml = true,
+                Body = body
+                
+            })
+            {
+                smtp.Send(message);
+            }
+
+
+        }
+
+
     }
 }

@@ -61,7 +61,6 @@ C:\BarraLeather\BarraLeather\bin\es\System.Web.Webpages.Deployment.resources.dll
 C:\BarraLeather\BarraLeather\bin\es\System.Web.Webpages.Razor.resources.dll
 C:\BarraLeather\BarraLeather\bin\es\System.Web.Helpers.resources.dll
 C:\BarraLeather\BarraLeather\bin\es\System.Web.Mvc.resources.dll
-C:\BarraLeather\BarraLeather\obj\Debug\BarraLeather.csprojResolveAssemblyReference.cache
 C:\BarraLeather\BarraLeather\obj\Debug\BarraLeather.dll
 C:\BarraLeather\BarraLeather\obj\Debug\BarraLeather.pdb
 C:\BarraLeather\BarraLeather\bin\Microsoft.Owin.dll

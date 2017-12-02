@@ -19,6 +19,10 @@ namespace BarraLeather
         public int prodid { get; set; }
         public int cantidad { get; set; }
         public int pedidoid { get; set; }
-        public decimal subtotal { get; set; }
+        public Nullable<decimal> subtotal { get; set; }
+    
+        public virtual pedidosex pedidosex { get; set; }
+        public virtual productos productos { get; set; }
+        public virtual users users { get; set; }
     }
 }

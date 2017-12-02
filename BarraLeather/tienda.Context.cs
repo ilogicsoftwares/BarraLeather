@@ -25,11 +25,11 @@ namespace BarraLeather
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<cart> cart { get; set; }
         public virtual DbSet<category> category { get; set; }
-        public virtual DbSet<pedidos> pedidos { get; set; }
+        public virtual DbSet<pedidosex> pedidosex { get; set; }
         public virtual DbSet<productos> productos { get; set; }
         public virtual DbSet<users> users { get; set; }
-        public virtual DbSet<pedidosex> pedidosex { get; set; }
+        public virtual DbSet<cart> cart { get; set; }
+        public virtual DbSet<pedidos> pedidos { get; set; }
     }
 }

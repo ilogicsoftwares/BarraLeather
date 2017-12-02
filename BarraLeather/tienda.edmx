@@ -33,7 +33,7 @@
           <Property Name="prodid" Type="int" Nullable="false" />
           <Property Name="cantidad" Type="int" Nullable="false" />
           <Property Name="pedidoid" Type="int" Nullable="false" />
-          <Property Name="subtotal" Type="decimal" Precision="11" Scale="2" Nullable="false" />
+          <Property Name="subtotal" Type="decimal" Precision="11" Scale="2" />
         </EntityType>
         <EntityType Name="pedidosex">
           <Key>
@@ -82,6 +82,42 @@
           <Property Name="genero" Type="varchar" MaxLength="20" />
           <Property Name="direccionEntrega" Type="longtext" />
         </EntityType>
+        <Association Name="pedexid">
+          <End Role="pedidosex" Type="Self.pedidosex" Multiplicity="1" />
+          <End Role="pedidos" Type="Self.pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pedidosex">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedidos">
+              <PropertyRef Name="pedidoid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="pedproid">
+          <End Role="productos" Type="Self.productos" Multiplicity="1" />
+          <End Role="pedidos" Type="Self.pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedidos">
+              <PropertyRef Name="prodid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="peduserid">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="pedidos" Type="Self.pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedidos">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="prodcartid">
           <End Role="productos" Type="Self.productos" Multiplicity="1" />
           <End Role="cart" Type="Self.cart" Multiplicity="*" />
@@ -113,6 +149,18 @@
           <EntitySet Name="pedidosex" EntityType="Self.pedidosex" Schema="tienda" store:Type="Tables" />
           <EntitySet Name="productos" EntityType="Self.productos" Schema="tienda" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="tienda" store:Type="Tables" />
+          <AssociationSet Name="pedexid" Association="Self.pedexid">
+            <End Role="pedidosex" EntitySet="pedidosex" />
+            <End Role="pedidos" EntitySet="pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="pedproid" Association="Self.pedproid">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="pedidos" EntitySet="pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="peduserid" Association="Self.peduserid">
+            <End Role="users" EntitySet="users" />
+            <End Role="pedidos" EntitySet="pedidos" />
+          </AssociationSet>
           <AssociationSet Name="prodcartid" Association="Self.prodcartid">
             <End Role="productos" EntitySet="productos" />
             <End Role="cart" EntitySet="cart" />
@@ -126,18 +174,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="tiendaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="cart">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="userid" Type="Int32" Nullable="false" />
-          <Property Name="prodid" Type="Int32" Nullable="false" />
-          <Property Name="cantidad" Type="Int32" Nullable="false" />
-          <Property Name="fecha" Type="DateTime" />
-          <NavigationProperty Name="productos" Relationship="Self.prodcartid" FromRole="cart" ToRole="productos" />
-          <NavigationProperty Name="users" Relationship="tiendaModel.usercartid" FromRole="cart" ToRole="users" />
-        </EntityType>
         <EntityType Name="category">
           <Key>
             <PropertyRef Name="id" />
@@ -146,17 +182,50 @@
           <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="href" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="pedidos">
+        <EntityContainer Name="tiendaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="category" EntityType="Self.category" />
+          <EntitySet Name="pedidosex" EntityType="tiendaModel.pedidosex" />
+          <EntitySet Name="productos" EntityType="tiendaModel.productos" />
+          <EntitySet Name="users" EntityType="tiendaModel.users" />
+          <EntitySet Name="cart" EntityType="tiendaModel.cart" />
+          <AssociationSet Name="prodcartid" Association="tiendaModel.prodcartid">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="cart" EntitySet="cart" />
+          </AssociationSet>
+          <AssociationSet Name="usercartid" Association="tiendaModel.usercartid">
+            <End Role="users" EntitySet="users" />
+            <End Role="cart" EntitySet="cart" />
+          </AssociationSet>
+          <EntitySet Name="pedidos" EntityType="tiendaModel.pedidos" />
+          <AssociationSet Name="pedexid" Association="tiendaModel.pedexid">
+            <End Role="pedidosex" EntitySet="pedidosex" />
+            <End Role="pedidos" EntitySet="pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="pedproid" Association="tiendaModel.pedproid">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="pedidos" EntitySet="pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="peduserid" Association="tiendaModel.peduserid">
+            <End Role="users" EntitySet="users" />
+            <End Role="pedidos" EntitySet="pedidos" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="pedidosex">
           <Key>
             <PropertyRef Name="id" />
-            <PropertyRef Name="pedidoid" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="userid" Type="Int32" Nullable="false" />
-          <Property Name="prodid" Type="Int32" Nullable="false" />
-          <Property Name="cantidad" Type="Int32" Nullable="false" />
-          <Property Name="pedidoid" Type="Int32" Nullable="false" />
           <Property Name="subtotal" Type="Decimal" Nullable="false" />
+          <Property Name="impuesto" Type="Decimal" Nullable="false" />
+          <Property Name="montoEntrega" Type="Decimal" Nullable="false" />
+          <Property Name="estatus" Type="Int32" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" />
+          <Property Name="fechadepago" Type="DateTime" />
+          <Property Name="mododepago" Type="Int32" Nullable="false" />
+          <Property Name="direccionEntrega" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="total" Type="Decimal" />
+          <NavigationProperty Name="pedidos" Relationship="tiendaModel.pedexid" FromRole="pedidosex" ToRole="pedidos" />
         </EntityType>
         <EntityType Name="productos">
           <Key>
@@ -171,36 +240,9 @@
           <Property Name="status" Type="Int32" />
           <Property Name="category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="categoryid" Type="Int32" />
-          <NavigationProperty Name="cart" Relationship="Self.prodcartid" FromRole="productos" ToRole="cart" />
+          <NavigationProperty Name="cart" Relationship="tiendaModel.prodcartid" FromRole="productos" ToRole="cart" />
+          <NavigationProperty Name="pedidos" Relationship="tiendaModel.pedproid" FromRole="productos" ToRole="pedidos" />
         </EntityType>
-        <Association Name="prodcartid">
-          <End Role="productos" Type="Self.productos" Multiplicity="1" />
-          <End Role="cart" Type="Self.cart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="productos">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="cart">
-              <PropertyRef Name="prodid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="tiendaEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="cart" EntityType="Self.cart" />
-          <EntitySet Name="category" EntityType="Self.category" />
-          <EntitySet Name="pedidos" EntityType="Self.pedidos" />
-          <EntitySet Name="productos" EntityType="Self.productos" />
-          <AssociationSet Name="prodcartid" Association="Self.prodcartid">
-            <End Role="productos" EntitySet="productos" />
-            <End Role="cart" EntitySet="cart" />
-          </AssociationSet>
-          <EntitySet Name="users" EntityType="tiendaModel.users" />
-          <AssociationSet Name="usercartid" Association="tiendaModel.usercartid">
-            <End Role="users" EntitySet="users" />
-            <End Role="cart" EntitySet="cart" />
-          </AssociationSet>
-          <EntitySet Name="pedidosex" EntityType="tiendaModel.pedidosex" />
-        </EntityContainer>
         <EntityType Name="users">
           <Key>
             <PropertyRef Name="id" />
@@ -218,7 +260,32 @@
           <Property Name="genero" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="direccionEntrega" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="cart" Relationship="tiendaModel.usercartid" FromRole="users" ToRole="cart" />
+          <NavigationProperty Name="pedidos" Relationship="tiendaModel.peduserid" FromRole="users" ToRole="pedidos" />
         </EntityType>
+        <EntityType Name="cart">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <Property Name="prodid" Type="Int32" Nullable="false" />
+          <Property Name="cantidad" Type="Int32" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" />
+          <NavigationProperty Name="productos" Relationship="tiendaModel.prodcartid" FromRole="cart" ToRole="productos" />
+          <NavigationProperty Name="users" Relationship="tiendaModel.usercartid" FromRole="cart" ToRole="users" />
+        </EntityType>
+        <Association Name="prodcartid">
+          <End Type="tiendaModel.productos" Role="productos" Multiplicity="1" />
+          <End Type="tiendaModel.cart" Role="cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="cart">
+              <PropertyRef Name="prodid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="usercartid">
           <End Type="tiendaModel.users" Role="users" Multiplicity="1" />
           <End Type="tiendaModel.cart" Role="cart" Multiplicity="*" />
@@ -231,39 +298,63 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="pedidosex">
+        <EntityType Name="pedidos">
           <Key>
             <PropertyRef Name="id" />
+            <PropertyRef Name="pedidoid" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="userid" Type="Int32" Nullable="false" />
-          <Property Name="subtotal" Type="Decimal" Nullable="false" />
-          <Property Name="impuesto" Type="Decimal" Nullable="false" />
-          <Property Name="montoEntrega" Type="Decimal" Nullable="false" />
-          <Property Name="estatus" Type="Int32" Nullable="false" />
-          <Property Name="fecha" Type="DateTime" Nullable="false" />
-          <Property Name="fechadepago" Type="DateTime" />
-          <Property Name="mododepago" Type="Int32" Nullable="false" />
-          <Property Name="direccionEntrega" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="total" Type="Decimal" />
+          <Property Name="prodid" Type="Int32" Nullable="false" />
+          <Property Name="cantidad" Type="Int32" Nullable="false" />
+          <Property Name="pedidoid" Type="Int32" Nullable="false" />
+          <Property Name="subtotal" Type="Decimal" />
+          <NavigationProperty Name="pedidosex" Relationship="tiendaModel.pedexid" FromRole="pedidos" ToRole="pedidosex" />
+          <NavigationProperty Name="productos" Relationship="tiendaModel.pedproid" FromRole="pedidos" ToRole="productos" />
+          <NavigationProperty Name="users" Relationship="tiendaModel.peduserid" FromRole="pedidos" ToRole="users" />
         </EntityType>
+        <Association Name="pedexid">
+          <End Type="tiendaModel.pedidosex" Role="pedidosex" Multiplicity="1" />
+          <End Type="tiendaModel.pedidos" Role="pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pedidosex">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedidos">
+              <PropertyRef Name="pedidoid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="pedproid">
+          <End Type="tiendaModel.productos" Role="productos" Multiplicity="1" />
+          <End Type="tiendaModel.pedidos" Role="pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedidos">
+              <PropertyRef Name="prodid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="peduserid">
+          <End Type="tiendaModel.users" Role="users" Multiplicity="1" />
+          <End Type="tiendaModel.pedidos" Role="pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedidos">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="tiendaModelStoreContainer" CdmEntityContainer="tiendaEntities">
-          <EntitySetMapping Name="cart">
-            <EntityTypeMapping TypeName="tiendaModel.cart">
-              <MappingFragment StoreEntitySet="cart">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="userid" ColumnName="userid" />
-                <ScalarProperty Name="prodid" ColumnName="prodid" />
-                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="category">
             <EntityTypeMapping TypeName="tiendaModel.category">
               <MappingFragment StoreEntitySet="category">
@@ -273,30 +364,35 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="pedidos">
-            <EntityTypeMapping TypeName="tiendaModel.pedidos">
-              <MappingFragment StoreEntitySet="pedidos">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="userid" ColumnName="userid" />
-                <ScalarProperty Name="prodid" ColumnName="prodid" />
-                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
-                <ScalarProperty Name="pedidoid" ColumnName="pedidoid" />
+          <EntitySetMapping Name="pedidosex">
+            <EntityTypeMapping TypeName="tiendaModel.pedidosex">
+              <MappingFragment StoreEntitySet="pedidosex">
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="direccionEntrega" ColumnName="direccionEntrega" />
+                <ScalarProperty Name="mododepago" ColumnName="mododepago" />
+                <ScalarProperty Name="fechadepago" ColumnName="fechadepago" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="estatus" ColumnName="estatus" />
+                <ScalarProperty Name="montoEntrega" ColumnName="montoEntrega" />
+                <ScalarProperty Name="impuesto" ColumnName="impuesto" />
                 <ScalarProperty Name="subtotal" ColumnName="subtotal" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="productos">
             <EntityTypeMapping TypeName="tiendaModel.productos">
               <MappingFragment StoreEntitySet="productos">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="precio" ColumnName="precio" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="inventario" ColumnName="inventario" />
-                <ScalarProperty Name="foto" ColumnName="foto" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="category" ColumnName="category" />
                 <ScalarProperty Name="categoryid" ColumnName="categoryid" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="foto" ColumnName="foto" />
+                <ScalarProperty Name="inventario" ColumnName="inventario" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -318,18 +414,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="pedidosex">
-            <EntityTypeMapping TypeName="tiendaModel.pedidosex">
-              <MappingFragment StoreEntitySet="pedidosex">
-                <ScalarProperty Name="total" ColumnName="total" />
-                <ScalarProperty Name="direccionEntrega" ColumnName="direccionEntrega" />
-                <ScalarProperty Name="mododepago" ColumnName="mododepago" />
-                <ScalarProperty Name="fechadepago" ColumnName="fechadepago" />
+          <EntitySetMapping Name="cart">
+            <EntityTypeMapping TypeName="tiendaModel.cart">
+              <MappingFragment StoreEntitySet="cart">
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="estatus" ColumnName="estatus" />
-                <ScalarProperty Name="montoEntrega" ColumnName="montoEntrega" />
-                <ScalarProperty Name="impuesto" ColumnName="impuesto" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="prodid" ColumnName="prodid" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pedidos">
+            <EntityTypeMapping TypeName="tiendaModel.pedidos">
+              <MappingFragment StoreEntitySet="pedidos">
                 <ScalarProperty Name="subtotal" ColumnName="subtotal" />
+                <ScalarProperty Name="pedidoid" ColumnName="pedidoid" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="prodid" ColumnName="prodid" />
                 <ScalarProperty Name="userid" ColumnName="userid" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>

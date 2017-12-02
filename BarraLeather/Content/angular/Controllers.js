@@ -213,7 +213,32 @@
 
     }
 
-  
+}]).controller('DetallePedidoController', ['$scope', 'Irequest', '$sce', function ($scope, Irequest, $sce) {
+
+    $scope.pedido = pedido;
+
+    Irequest.make("POST", "/Productos/GetRandom").then(function (data) {
+        $scope.ramprod = data;
+    })
+
+    $scope.total = function () {
+        var a = 0
+        $scope.pedido.forEach(function (item) {
+            a += item.cantidad * item.precio;
+
+        })
+        return a;
+    }
+
+
+    $scope.Modal = function (id, BoolShow) {
+        var dis = "block";
+        if (!BoolShow) {
+            dis = "none"
+        }
+        document.getElementById(id).style.display = dis;
+
+    }
 
 }]).controller('contactController', ['$scope', 'Irequest', '$sce', 'Categorys', '$http', function ($scope, Irequest, $sce, Categorys, $http) {;
 

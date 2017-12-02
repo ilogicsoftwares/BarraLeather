@@ -1,40 +1,39 @@
-﻿<body ng-controller="PedidosController">
+﻿
+<body ng-controller="DetallePedidoController">
 
     <div id="wrapper">
 
 
         <section class="header_text sub">
             <img class="pageBanner" src="themes/images/pageBanner.png" alt="Productos">
-            <h4><span>Historial de Pedidos</span></h4>
+            <h4><span>Detalle del Pedido</span></h4>
         </section>
         <section class="main-content">
             <div class="row">
                 <div class="span9">
-                    <h4 class="title"><span class="text">Tu <strong>Historial</strong></span></h4>
+                    <h4 class="title"><span class="text">Pedido # <strong>@ViewBag.pedidoId</strong></span></h4>
                     <div style="overflow-y:auto!important;overflow-x:auto;height:600px!important">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Numero</th>
-                                    <th>Fecha</th>
-                                    <th>Monto</th>
-                                    <th>Estatus</th>
-                                    <th>Ver Detalle</th>
-                                 </tr>
+                                   
+                                    <th>Imagen</th>
+                                    <th>Nombre del Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio Unitario</th>
+                                    <th>Total</th>
+                                </tr>
                             </thead>
 
                             <tbody>
 
-                                <tr ng-repeat="item in pedidos track by $index">
-                                    <td>{{item.id}}</td>
-                                    <td>{{item.fecha}}</td>
-                                    <td>S/.{{item.total}}</td>
-                                    <td >
-                                        <a ng-if="item.estatus==0" href="#">Pagar</a>
-                                        <a ng-if="item.estatus==1">Pagado</a>
-                                        <a ng-if="item.estatus==2">Entregado</a>
-                                    </td>
-                                    <td><a href="/Shop/Pedidodet/{{item.id}}">Detalle</a></td>
+                                <tr ng-repeat="item in pedido track by $index">
+                                  
+                                    <td><a href="/Productos/Details/{{item.prodid}}"><img width="50" alt="" src="~/Content/themes/images/ladies/{{item.foto}}"></a></td>
+                                    <td>{{item.nombre}}</td>
+                                    <td>{{item.cantidad}}</td>
+                                    <td>S/. {{item.precio}} </td>
+                                    <td>S/. {{item.cantidad * item.precio}}</td>
                                 </tr>
 
 
@@ -42,8 +41,17 @@
                         </table>
                     </div>
                     <hr>
-
-
+                    <p class="cart-total right">
+                        <strong>Sub-Total</strong>:S/. {{total()}}<br>
+                        <strong>Impuesto (0.00)</strong>: S/. 0.00<br>
+                        <strong>Reparto (0.00)</strong>: S/0.00<br>
+                        <strong>Total</strong>: S/. {{total()}}<br>
+                    </p>
+                    <hr />
+                    <p class="buttons pull-right">
+                        <!-- <button class="btn" type="button">Continue</button>-->
+                        <button ng-disabled="cart.length<=0" ng-click="Modal('id01',true)" class="btn btn-inverse" type="submit">Procesar Pedido</button>
+                    </p>
                 </div>
                 <div style="padding-top:18px" class="span3 col">
 
@@ -87,17 +95,16 @@
                         <strong>Reparto (0.00)</strong>: S/0.00<br>
                         <strong>Total</strong>: S/. {{total()}}<br>
                     </p>
-                    <p><button class="w3-btn w3-white w3-border w3-right">Procesar</button><button ng-click="Modal('id01',false)" class="w3-btn w3-white w3-border w3-border-red w3-text-red w3-round-large">Cancelar</button></p>
+                   
                 </div>
             </div>
         </div>
 
 
     </div>
-
+   
     <script>
-
-        var categorys = JSON.parse('@Html.Raw(ViewBag.categorys)');
-        var pedidos = JSON.parse('@Html.Raw(ViewBag.pedidos)');
+        var pedido = JSON.parse('@Html.Raw(ViewBag.pedido)');
+			var categorys = JSON.parse('@Html.Raw(ViewBag.categorys)');
     </script>
 </body>

@@ -293,6 +293,7 @@
     </Content>
     <Content Include="Views\Shop\Process.cshtml" />
     <Content Include="Views\Shop\Pedidos.cshtml" />
+    <Content Include="Views\Shop\PedidoDet.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

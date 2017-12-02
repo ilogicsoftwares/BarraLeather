@@ -14,6 +14,12 @@ namespace BarraLeather
     
     public partial class pedidosex
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public pedidosex()
+        {
+            this.pedidos = new HashSet<pedidos>();
+        }
+    
         public int id { get; set; }
         public int userid { get; set; }
         public decimal subtotal { get; set; }
@@ -25,5 +31,8 @@ namespace BarraLeather
         public int mododepago { get; set; }
         public string direccionEntrega { get; set; }
         public Nullable<decimal> total { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<pedidos> pedidos { get; set; }
     }
 }

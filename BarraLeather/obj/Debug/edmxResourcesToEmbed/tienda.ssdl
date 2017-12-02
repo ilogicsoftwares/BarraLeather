@@ -28,7 +28,7 @@
     <Property Name="prodid" Type="int" Nullable="false" />
     <Property Name="cantidad" Type="int" Nullable="false" />
     <Property Name="pedidoid" Type="int" Nullable="false" />
-    <Property Name="subtotal" Type="decimal" Precision="11" Scale="2" Nullable="false" />
+    <Property Name="subtotal" Type="decimal" Precision="11" Scale="2" />
   </EntityType>
   <EntityType Name="pedidosex">
     <Key>
@@ -77,6 +77,42 @@
     <Property Name="genero" Type="varchar" MaxLength="20" />
     <Property Name="direccionEntrega" Type="longtext" />
   </EntityType>
+  <Association Name="pedexid">
+    <End Role="pedidosex" Type="Self.pedidosex" Multiplicity="1" />
+    <End Role="pedidos" Type="Self.pedidos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pedidosex">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="pedidos">
+        <PropertyRef Name="pedidoid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="pedproid">
+    <End Role="productos" Type="Self.productos" Multiplicity="1" />
+    <End Role="pedidos" Type="Self.pedidos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="pedidos">
+        <PropertyRef Name="prodid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="peduserid">
+    <End Role="users" Type="Self.users" Multiplicity="1" />
+    <End Role="pedidos" Type="Self.pedidos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="pedidos">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="prodcartid">
     <End Role="productos" Type="Self.productos" Multiplicity="1" />
     <End Role="cart" Type="Self.cart" Multiplicity="*" />
@@ -108,6 +144,18 @@
     <EntitySet Name="pedidosex" EntityType="Self.pedidosex" Schema="tienda" store:Type="Tables" />
     <EntitySet Name="productos" EntityType="Self.productos" Schema="tienda" store:Type="Tables" />
     <EntitySet Name="users" EntityType="Self.users" Schema="tienda" store:Type="Tables" />
+    <AssociationSet Name="pedexid" Association="Self.pedexid">
+      <End Role="pedidosex" EntitySet="pedidosex" />
+      <End Role="pedidos" EntitySet="pedidos" />
+    </AssociationSet>
+    <AssociationSet Name="pedproid" Association="Self.pedproid">
+      <End Role="productos" EntitySet="productos" />
+      <End Role="pedidos" EntitySet="pedidos" />
+    </AssociationSet>
+    <AssociationSet Name="peduserid" Association="Self.peduserid">
+      <End Role="users" EntitySet="users" />
+      <End Role="pedidos" EntitySet="pedidos" />
+    </AssociationSet>
     <AssociationSet Name="prodcartid" Association="Self.prodcartid">
       <End Role="productos" EntitySet="productos" />
       <End Role="cart" EntitySet="cart" />

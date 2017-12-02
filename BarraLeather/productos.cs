@@ -18,6 +18,7 @@ namespace BarraLeather
         public productos()
         {
             this.cart = new HashSet<cart>();
+            this.pedidos = new HashSet<pedidos>();
         }
     
         public int id { get; set; }
@@ -32,5 +33,7 @@ namespace BarraLeather
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cart> cart { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<pedidos> pedidos { get; set; }
     }
 }
