@@ -128,11 +128,11 @@
             </div>  
 
                 <div class="span6 center">
-               
-                        <input type="text" class="input-large" placeholder="Buscar por Ej. Mochilas" style="width:100%;margin-top:20px">
-                 
-
-                </div>  
+                    <div class="input-append" style="width:100%">
+                        <input type="text" class="input-large" placeholder="Buscar por Ej. Mochila" style="width:100%;margin-top:20px" ng-model="buscar">
+                        <a href="/Shop/Search/?nombre={{buscar}}"><i style="margin-top:20px" class="add-on fa fa-search" aria-hidden="true"></i></a>
+                    </div>
+                    </div>  
                 <div class="span3"  style="padding-left:50px">
                     <a class="btn btn-large" href="/Shop/Cart" style="margin-top:37px;margin-left:5px"><i class="icon-shopping-cart"></i> Mi Carrito</a>
                 </div>  

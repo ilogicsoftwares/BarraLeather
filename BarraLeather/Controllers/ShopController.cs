@@ -136,6 +136,16 @@ namespace BarraLeather.Controllers
             ViewBag.category = cat.FirstOrDefault(x=>x.id==id).name;
             return View(@"~\Views\Shop\Category.cshtml");
         }
+        public ActionResult Search(string nombre)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var allprods = db.productos.Where(x => x.nombre.Contains (nombre)).ToList();
+            ViewBag.shop = JsonConvert.SerializeObject(allprods);
+            var cat = db.category.OrderBy(x => x.id).ToList();
+            ViewBag.categorys = JsonConvert.SerializeObject(cat);
+            ViewBag.category = "Busqueda";
+            return View(@"~\Views\Shop\Category.cshtml");
+        }
 
         // POST: Shop/Edit/5
         [HttpPost]
