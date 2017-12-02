@@ -86,7 +86,7 @@
                                         <li style="position:relative;z-index:10000" ng-repeat="items in categorias"><a href="/Shop/Getcategory/{{items.id}}">{{items.name}}</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="#"><h4 style="margin:0px">OFERTAS</h4></a> </li>
+                                <li><a href="/Shop/Offers"><h4 style="margin:0px">OFERTAS</h4></a> </li>
                                 @if (HttpContext.Current.User.Identity.IsAuthenticated)
                                 {
                                     <li class="dropdown">
@@ -160,7 +160,7 @@
                                             <li style="position:relative;z-index:10000" ng-repeat="items in categorias"><a href="/Shop/Getcategory/{{items.id}}">{{items.name}}</a></li>
                                         </ul>
                                     </li>
-                                   <li ><a href="#"><h4 style="margin:0px">OFERTAS</h4></a> </li>  
+                                   <li ><a href="/Shop/Offers"><h4 style="margin:0px">OFERTAS</h4></a> </li>  
                                 @if (HttpContext.Current.User.Identity.IsAuthenticated)
                                 {
                                     <li class="dropdown">
